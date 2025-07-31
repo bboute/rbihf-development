@@ -1,0 +1,175 @@
+  
+
+# Product Requirements Document: Belgian Hockey Development Hub
+
+## **Overview**
+
+The Belgian Talent Pool Program aims to elevate the standard of ice hockey across Belgium to improve the performance of our U18 and U20 national teams in IIHF tournaments. Currently, there is a disconnect between the standards of the national program and the development happening within local clubs. Players and coaches arriving at talent pool events are often unprepared for the high-performance environment.
+
+This project solves this problem by creating a centralized digital platform: **The Belgian Hockey Development Hub**.
+
+This platform will be the single source of truth for modern ice hockey development in Belgium. It is for **club coaches**, **club staff**, **players**, and **parents** involved in the Belgian hockey ecosystem. Its value lies in standardizing coaching methodologies, providing age-appropriate development curricula, disseminating best practices for player and club development, and creating a unified, educated hockey community, ultimately leading to more successful national teams.
+
+## **Core Features**
+
+### 1\. Public Information Portal
+
+* *   **What it does:** A public-facing section of the website that provides general information about the Belgian Talent Pool Program. All content is managed in Sanity.
+*     
+* *   **Why it's important:** Acts as the front door for the program. It promotes transparency, generates interest, and communicates the program's vision.
+*     
+* *   **High-Level Functionality:** News, "Our Philosophy," Tryout Info, Contact Info.
+*     
+
+### 2\. Role-Based Secure Content Library
+
+* *   **What it does:** A secure, login-only area where registered users can access content from Sanity tailored to their specific role.
+*     
+* *   **Why it's important:** Protects proprietary coaching materials and allows for targeted information delivery.
+*     
+* *   **High-Level Functionality:**
+*     
+*     * *   User authentication (Clerk) and role management (Clerk/Supabase).
+*     *     
+*     * *   Content is fetched from Sanity and displayed based on the user's role.
+*     *     
+*     * *   **For Licensed Coaches:** Access to foundational coaching knowledge.
+*     *     
+*     * *   **For Club Staff:** Access to resources on club management and recruitment.
+*     *     
+*     * *   **For Admins (Talent Pool Staff):** Use the Sanity Studio for full content management.
+*     *     
+
+### 3\. Age-Specific Development Curriculum
+
+* *   **What it does:** Provides a structured curriculum for player development, with all content managed in Sanity.
+*     
+* *   **Why it's important:** Standardizes development and creates a consistent pipeline.
+*     
+* *   **High-Level Functionality:** Dedicated sections per age group, details on what/how to teach, and game play rules.
+*     
+
+### 4\. Recruitment & Club Growth Module
+
+* *   **What it does:** A resource center in Sanity to help clubs increase their player base.
+*     
+* *   **Why it's important:** Addresses the need for a larger player pool.
+*     
+* *   **High-Level Functionality:** Marketing materials, outreach guides, retention best practices.
+*     
+
+## **User Experience**
+
+### User Personas
+
+1. 1.  **Filip, the U12 Club Coach:** Volunteers at his local club. He wants to learn modern drills and systems to help his players improve.
+1.     
+1. 2.  **Ann, the Club Manager:** Responsible for club operations. She wants practical strategies to attract and retain new families.
+1.     
+1. 3.  **Leo, the U14 Player (and his parents):** A talented player who wants to understand what is expected of him at the Talent Pool level.
+1.     
+1. 4.  **You, the Admin (Talent Pool Staff):** As a program leader, you need a powerful and intuitive interface (Sanity Studio) to manage all articles, guides, and resources for the entire platform.
+1.     
+
+## **Technical Architecture**
+
+* *   **Framework:** **Next.js**
+*     
+* *   **CMS (Content):** **Sanity.io** (Headless CMS for all articles, guides, and page content. Provides a rich content editing studio for staff).
+*     
+* *   **Authentication:** **Clerk**
+*     
+* *   **Database (User/App Data):** **Supabase** (Used for storing user-related data, club information, and role mappings that aren't stored in Clerk).
+*     
+* *   **Hosting:** **Vercel**
+*     
+* *   **Styling:** **Tailwind CSS**
+*     
+
+### Data Models
+
+* *   **Sanity Schemas (Content):**
+*     
+*     * *   `post`: For news and articles. Fields: `title`, `slug`, `publishedAt`, `mainImage`, `body` (rich text), `author`.
+*     *     
+*     * *   `guide`: For coaching and club growth resources. Fields: `title`, `slug`, `summary`, `body`, `ageCategory`, `targetRole` ('coach', 'staff').
+*     *     
+*     * *   `page`: For static pages like "Our Philosophy".
+*     *     
+* *   **Supabase Tables (User/App Data):**
+*     
+*     * *   `users`: Links Clerk ID to application-specific data. Fields: `id`, `clerk_id`, `role` ('admin', 'coach', 'staff'), `club_id`.
+*     *     
+*     * *   `clubs`: A list of all clubs in Belgium. Fields: `id`, `name`, `location`.
+*     *     
+
+## **Development Roadmap**
+
+### Phase 1: Minimum Viable Product (MVP)
+
+The goal is to launch a functional platform that provides immediate value to new and developing coaches by establishing a baseline of coaching knowledge.
+
+1. 1.  **Foundation:** Setup Next.js project, integrate Clerk for auth, connect to Supabase for user tables, and connect to a new Sanity project.
+1.     
+1. 2.  **Content Backend (Sanity):** Define the initial content schemas in Sanity (e.g., `post`, `guide`). Deploy the Sanity Studio so staff can begin writing content.
+1.     
+1. 3.  **User Onboarding:** Implement a process for Admins to invite/bulk-import licensed coaches from the provided CSV file into Clerk/Supabase.
+1.     
+1. 4.  **Public Site:** Build the main public-facing pages, fetching content from Sanity.
+1.     
+1. 5.  **Coach Portal:** Create the secure, logged-in section. The app will check the user's role (from Supabase) and fetch the appropriate restricted content from Sanity.
+1.     
+1. 6.  **Initial Content:** Populate Sanity with essential articles on practice planning, structure, and the LTP philosophy.
+1.     
+
+### Phase 2: Enhancements & Drill Integration
+
+Build upon the MVP by adding more roles, content types, and the drill library.
+
+1. 1.  **Drill Library:** Integrate with the 3rd party drill platform (IceHockeySystems).
+1.     
+1. 2.  **Advanced Content:** Add more advanced content to Sanity. Implement search and filtering on the Next.js front-end.
+1.     
+1. 3.  **Expand Roles:** Add the "Club Staff" role and create the "Club Growth" and "Recruitment" sections, pulling content tagged for that role from Sanity.
+1.     
+1. 4.  **Video Integration:** Utilize Sanity's asset pipeline for uploading and managing videos.
+1.     
+
+### Phase 3: Community & Future Growth
+
+Focus on features that increase engagement and utility.
+
+1. 1.  **Community Forum:** Implement a forum. Forum posts and replies would be stored in **Supabase**, as this is user-generated data, not editorial content.
+1.     
+1. 2.  **Event Calendar:** Integrate a calendar, with events managed in Sanity.
+1.     
+1. 3.  **Guest Coach Integration:** Create a dedicated content section in Sanity for guest coaches.
+1.     
+
+## **Logical Dependency Chain**
+
+1. 1.  **Setup All Services (Next.js, Clerk, Supabase, Sanity)**
+1.     
+1. 2.  **Content Schema & Studio Setup (Sanity)**
+1.     
+1. 3.  **User Data Model (Supabase) & Import**
+1.     
+1. 4.  **Frontend Development (Connecting to Sanity & showing role-based content)**
+1.     
+1. 5.  **Layer on Enhancements & Community Features**
+1.     
+
+## **Risks and Mitigations**
+
+* *   **Risk: Content Bottleneck.**
+*     
+*     * *   **Mitigation:** The Sanity Studio is very user-friendly, but staff will still need a content strategy and calendar. Create templates within Sanity to streamline content creation.
+*     *     
+* *   **Risk: Low Adoption by Coaches.**
+*     
+*     * *   **Mitigation:** The Belgian Ice Hockey Federation must champion this platform. Communicate the value proposition clearly: "This is the new home for your coaching development."
+*     *     
+* *   **Risk: Technical Challenge with CSV Import.**
+*     
+*     * *   **Mitigation:** Thoroughly plan the data mapping from the CSV to the user model in Supabase and the invitation process in Clerk.
+*     *
