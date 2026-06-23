@@ -149,6 +149,8 @@ export function ExhibitionGamesSection({ games }: ExhibitionGamesSectionProps) {
               const featuredGame = visibleGames[0]
               const remainingGames = visibleGames.slice(1)
 
+              if (!featuredGame) return null
+
               return (
                 <>
                   <article className="mb-12">
