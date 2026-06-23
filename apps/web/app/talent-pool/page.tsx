@@ -80,6 +80,8 @@ export default function TalentPoolPage(): JSX.Element {
               {stageOrder.map((slug) => {
                 const stage = talentPoolStageContent[slug]
 
+                if (!stage) return null
+
                 return (
                   <div key={stage.slug} className="rounded-3xl border border-primary/10 bg-background p-5">
                     <p className="text-2xl font-bold text-secondary">{stage.label}</p>
@@ -96,6 +98,8 @@ export default function TalentPoolPage(): JSX.Element {
               <div className="mt-6 space-y-5">
                 {(["u14", "u15", "u16"] as const).map((slug) => {
                   const stage = talentPoolStageContent[slug]
+
+                  if (!stage) return null
 
                   return (
                     <div key={stage.slug} className="rounded-3xl border border-primary/10 bg-background p-5">
