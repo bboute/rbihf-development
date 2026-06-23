@@ -2,6 +2,9 @@
   "extends": "@workspace/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "declaration": false,
+    "declarationMap": false,
+    "skipLibCheck": true,
     "paths": {
       "@/*": [
         "./*"
