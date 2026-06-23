@@ -1,3 +1,4 @@
+import type { JSX } from "react"
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -24,7 +25,7 @@ export default function GuideListItem({
   href,
   showAgeCategory = false,
   showRole = false 
-}: GuideListItemProps) {
+}: GuideListItemProps): JSX.Element {
   const linkHref = href || `/portal/guides/${guide.slug.current}`
 
   return (
