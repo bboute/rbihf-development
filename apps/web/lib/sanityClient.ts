@@ -46,6 +46,17 @@ export async function getPageBySlug(slug: string) {
   return await sanityClient.fetch(query, { slug });
 }
 
+// GROQ query to get all pages for static generation
+export async function getAllPages() {
+  const query = `*[_type == "page"] {
+    _id,
+    title,
+    slug
+  }`;
+
+  return await sanityClient.fetch(query);
+}
+
 // GROQ query to get a single post by slug
 export async function getPostBySlug(slug: string) {
   const query = `*[_type == "post" && slug.current == $slug][0] {

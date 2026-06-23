@@ -2,7 +2,7 @@ import type { JSX } from "react"
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
-import { getPageBySlug } from "@/lib/sanityClient";
+import { getPageBySlug, getAllPages } from "@/lib/sanityClient";
 import { portableTextComponents } from "@/lib/portableTextComponents";
 
 interface PageProps {
@@ -11,9 +11,16 @@ interface PageProps {
   }>;
 }
 
+export async function generateStaticParams() {
+  const pages = await getAllPages();
+  return pages.map((page: { slug: { current: string } }) => ({
+    slug: page.slug.current,
+  }));
+}
+
 export default async function StaticPage({
   params,
-}: PageProps): Promise<React.JSX.Element> {
+}: PageProps): Promise<JSX.Element> {
   const { slug } = await params;
   const page = await getPageBySlug(slug);
 
