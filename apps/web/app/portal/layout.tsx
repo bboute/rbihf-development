@@ -16,7 +16,6 @@ interface UserRoleContext {
 
 export default async function PortalLayout({
   children,
-}: PortalLayoutProps) {
 }: PortalLayoutProps): Promise<JSX.Element> {
   const { userId } = await auth()
 
