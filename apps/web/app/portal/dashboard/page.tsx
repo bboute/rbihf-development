@@ -1,3 +1,4 @@
+import type { JSX } from "react"
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
@@ -11,7 +12,7 @@ import GuidesWidget from "@/components/dashboard/GuidesWidget";
 import QuickActionsWidget from "@/components/dashboard/QuickActionsWidget";
 import NewsWidget from "@/components/dashboard/NewsWidget";
 
-export default async function CoachDashboardPage() {
+export default async function CoachDashboardPage(): Promise<JSX.Element> {
   const { userId } = await auth();
 
   if (!userId) {

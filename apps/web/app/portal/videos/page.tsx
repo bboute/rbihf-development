@@ -1,9 +1,10 @@
+import type { JSX } from "react"
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 
-export default async function PortalVideosPage() {
+export default async function PortalVideosPage(): Promise<JSX.Element> {
   const { userId } = await auth();
 
   if (!userId) {

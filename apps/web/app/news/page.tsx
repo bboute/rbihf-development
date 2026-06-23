@@ -1,3 +1,4 @@
+import type { JSX } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { getAllPosts } from "@/lib/sanityClient"
@@ -15,7 +16,7 @@ interface Post {
   }>
 }
 
-export default async function NewsPage() {
+export default async function NewsPage(): Promise<JSX.Element> {
   const posts = await getAllPosts()
 
   return (

@@ -1,3 +1,4 @@
+import type { JSX } from "react"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
@@ -11,7 +12,7 @@ interface GuidePageProps {
   }>
 }
 
-export default async function GuidePage({ params }: GuidePageProps) {
+export default async function GuidePage({ params }: GuidePageProps): Promise<JSX.Element> {
   const { slug } = await params
   const guide = await getGuideBySlug(slug)
 

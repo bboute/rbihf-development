@@ -1,3 +1,4 @@
+import type { JSX } from "react"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -11,7 +12,7 @@ interface PageProps {
   }>
 }
 
-export default async function NewsArticlePage({ params }: PageProps) {
+export default async function NewsArticlePage({ params }: PageProps): Promise<JSX.Element> {
   const { slug } = await params
   const post = await getPostBySlug(slug)
 

@@ -15,7 +15,7 @@ interface Guide {
   imageUrl?: string
 }
 
-export default async function PortalPage(): Promise<JSX.Element> {
+export default async function PortalPage(): Promise<JSX.Element | null> {
   const { userId } = await auth()
 
   if (!userId) {
