@@ -15,11 +15,11 @@ interface TalentPoolCategory {
 const categoryOrder = ["u14", "u15", "u16", "u18", "u20"] as const;
 
 const categoryDescriptions: Record<(typeof categoryOrder)[number], string> = {
-  u14: talentPoolStageContent.u14.summary,
-  u15: talentPoolStageContent.u15.summary,
-  u16: talentPoolStageContent.u16.summary,
-  u18: talentPoolStageContent.u18.summary,
-  u20: talentPoolStageContent.u20.summary,
+  u14: talentPoolStageContent.u14?.summary ?? "",
+  u15: talentPoolStageContent.u15?.summary ?? "",
+  u16: talentPoolStageContent.u16?.summary ?? "",
+  u18: talentPoolStageContent.u18?.summary ?? "",
+  u20: talentPoolStageContent.u20?.summary ?? "",
 };
 
 export async function TalentPoolCategories(): Promise<JSX.Element> {
