@@ -1,3 +1,4 @@
+import type { JSX } from 'react'
 import React from "react";
 import { notFound } from "next/navigation";
 import { Button } from "@workspace/ui/components/button";

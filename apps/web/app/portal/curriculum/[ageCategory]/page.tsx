@@ -1,3 +1,4 @@
+import type { JSX } from 'react'
 import { getGuidesByAgeCategory } from '@/lib/sanityClient'
 import GuideListItem from '@/components/GuideListItem'
 
@@ -16,7 +17,7 @@ export default async function AgeCategoryPage({
   params,
 }: {
   params: Promise<{ ageCategory: string }>
-}) {
+}): Promise<JSX.Element> {
   const { ageCategory } = await params
   
   // Fetch guides for the specific age category
