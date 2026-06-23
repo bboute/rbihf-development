@@ -18,5 +18,17 @@
   "packageManager": "pnpm@10.4.1",
   "engines": {
     "node": ">=20"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "esbuild"
+    ],
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "dependencies": {
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2"
   }
 }

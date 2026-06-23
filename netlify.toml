@@ -1,0 +1,30 @@
+# Netlify Deployment Configuration
+[build]
+  command = "pnpm install && pnpm build"
+  publish = "apps/web/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  PNPM_VERSION = "10.4.1"
+
+# Handle Next.js trailing slashes and redirects
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+[context.production.environment]
+  NODE_ENV = "production"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "production"
+
+[context.branch-deploy.environment]
+  NODE_ENV = "production"

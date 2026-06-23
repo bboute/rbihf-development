@@ -9,7 +9,7 @@
         "testStrategy": "Verify that the Next.js application runs locally without errors. Confirm that basic client instances for Supabase and Sanity can be initialized using the environment variables. Check that the Clerk provider can be wrapped around the root layout.",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -62,7 +62,7 @@
               "1.1"
             ],
             "details": "Create a new project in the Vercel dashboard. Link it to the GitHub, GitLab, or Bitbucket repository containing the Next.js application. Ensure the framework preset is correctly identified as Next.js.",
-            "status": "in-progress",
+            "status": "done",
             "testStrategy": "Push a commit to the main branch of the repository and verify that a new deployment is automatically triggered on Vercel. Check the Vercel deployment logs for a successful build and ensure the deployed site is accessible via its Vercel URL."
           }
         ]
@@ -77,7 +77,7 @@
         "dependencies": [
           1
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -85,7 +85,7 @@
             "description": "Set up the Sanity Studio project structure, either as a standalone project or embedded within the Next.js application, and connect it to the Sanity cloud project.",
             "dependencies": [],
             "details": "Run `npx sanity init` to create the project files. Configure the `sanity.config.ts` file with the correct `projectId` and `dataset` from the Sanity manage dashboard. Ensure the project is linked to the correct Sanity account.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Run `npm run dev` or `sanity start` in the studio directory and verify that the Sanity Studio loads locally in the browser without errors."
           },
           {
@@ -96,7 +96,7 @@
               "2.1"
             ],
             "details": "Create a `schemas/guide.ts` file. Define fields for `title` (string), `slug` (slug type with title as source), `summary` (text), `body` (block content/rich text), `ageCategory` (string with a predefined list of options like 'U10', 'U12'), and `targetRole` (string with options 'coach', 'staff').",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "In the local studio, attempt to create a new 'guide' document. Verify that all fields are present, the dropdown options for `ageCategory` and `targetRole` are correct, and the slug is auto-generated from the title."
           },
           {
@@ -107,7 +107,7 @@
               "2.1"
             ],
             "details": "Create `schemas/post.ts` and `schemas/page.ts`. For both, define standard fields like `title` (string), `slug` (slug type), and `body` (block content). The `post` schema can optionally include fields like `author` or `publishedAt`.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "In the local studio, verify that 'post' and 'page' appear as creatable document types. Create one of each and confirm their basic fields are functional."
           },
           {
@@ -119,7 +119,7 @@
               "2.3"
             ],
             "details": "In `sanity.config.ts`, import the `guide`, `post`, and `page` schema definitions and add them to the `schema.types` array. Use the `deskTool` plugin to customize the navigation pane, potentially grouping documents by their type.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Load the local Sanity Studio and check the main navigation pane. Confirm that `Guide`, `Post`, and `Page` are listed as content types, matching the configured desk structure."
           },
           {
@@ -130,7 +130,7 @@
               "2.4"
             ],
             "details": "Ensure the build command for the Sanity Studio is correctly configured in `package.json` and Vercel project settings. Add all necessary environment variables to Vercel (e.g., `SANITY_STUDIO_PROJECT_ID`, `SANITY_STUDIO_DATASET`). If embedding in Next.js, ensure the `/studio` route is correctly configured. Trigger a deployment.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Access the Vercel deployment URL for the studio. Log in with a Sanity account. Verify that the studio is fully functional and that new content for all schema types can be created and published."
           }
         ]
@@ -145,7 +145,7 @@
         "dependencies": [
           1
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -153,7 +153,7 @@
             "description": "Enable the `uuid-ossp` extension within the Supabase project to support the automatic generation of UUIDs for primary keys.",
             "dependencies": [],
             "details": "Navigate to the 'Database' -> 'Extensions' section in the Supabase dashboard. Find `uuid-ossp` in the list and enable it. This is a prerequisite for setting a default UUID value on the `users` table's primary key.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that `uuid-ossp` is listed as enabled in the 'Extensions' section of the Supabase dashboard."
           },
           {
@@ -162,7 +162,7 @@
             "description": "Create the `clubs` table to store information about each club in the application.",
             "dependencies": [],
             "details": "Using the Supabase Table Editor or a SQL script, create the `clubs` table. Define the columns: `id` as a UUID and primary key, `name` as text, and `location` as text.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Confirm in the Supabase Table Editor that the `clubs` table exists and contains the `id`, `name`, and `location` columns with the correct data types and `id` set as the primary key."
           },
           {
@@ -173,7 +173,7 @@
               "3.1"
             ],
             "details": "Using the Supabase Table Editor or a SQL script, create the `users` table. Define the columns: `id` as a UUID, primary key with a default value of `uuid_generate_v4()`, `clerk_id` as text, `role` as text, and `club_id` as a UUID.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify in the Supabase Table Editor that the `users` table exists with all specified columns, data types, and that the `id` column has its default value function correctly configured."
           },
           {
@@ -185,7 +185,7 @@
               "3.3"
             ],
             "details": "Add a foreign key constraint to the `users.club_id` column, making it reference `clubs.id`. Also, apply a unique constraint on the `users.clerk_id` column to ensure each Clerk user can only have one entry.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Inspect the table relationships and constraints in the Supabase dashboard to confirm the foreign key is active. Attempt to add a user with a `club_id` that does not exist in the `clubs` table; the operation should fail."
           },
           {
@@ -196,7 +196,7 @@
               "3.4"
             ],
             "details": "First, manually insert a sample record into the `clubs` table. Note its `id`. Then, insert a sample record into the `users` table, using the previously created club's `id` for the `club_id` field and a test value for `clerk_id`.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Confirm that both records can be inserted successfully. Verify the data integrity by checking the values in the dashboard. Attempt to insert a second user with the same `clerk_id` to ensure the unique constraint prevents it."
           }
         ]
@@ -211,7 +211,7 @@
         "dependencies": [
           1
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -219,7 +219,7 @@
             "description": "Install the `@clerk/nextjs` package and set up the necessary environment variables for Clerk integration.",
             "dependencies": [],
             "details": "Run `npm install @clerk/nextjs`. Obtain the `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` from the Clerk project dashboard and add them to the `.env.local` file to authenticate with the Clerk API.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -230,7 +230,7 @@
               "4.1"
             ],
             "details": "Modify the `app/layout.tsx` file to import `ClerkProvider` from `@clerk/nextjs`. Wrap the main content of the `<body>` tag with `<ClerkProvider>` to make authentication state and hooks available globally.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -241,7 +241,7 @@
               "4.2"
             ],
             "details": "Create two new route files: `app/sign-in/[[...sign-in]]/page.tsx` and `app/sign-up/[[...sign-up]]/page.tsx`. Import and render the `<SignIn />` and `<SignUp />` components from `@clerk/nextjs` within these pages to handle the respective authentication flows.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -252,7 +252,7 @@
               "4.3"
             ],
             "details": "Create a `middleware.ts` file at the root of the project. Import and export `authMiddleware` from `@clerk/nextjs`. Configure the `publicRoutes` array to include pages like the homepage, sign-in, and sign-up, while all other routes will be protected by default.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -263,7 +263,7 @@
               "4.4"
             ],
             "details": "In the application's main header or navigation component, import and render the `<UserButton>` from `@clerk/nextjs`. Use Clerk's `<SignedIn>` component to ensure the button only appears for authenticated users. Configure the `afterSignOutUrl` prop to redirect users to the homepage after they sign out.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -279,7 +279,7 @@
           3,
           4
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -287,7 +287,7 @@
             "description": "Set up a new webhook endpoint in the Clerk dashboard to listen for the `user.created` event. This is the first step to enable communication from Clerk to the Next.js application.",
             "dependencies": [],
             "details": "In the Clerk Dashboard, navigate to the Webhooks section. Create a new endpoint, providing the future URL of the API route (e.g., `https://<your-domain>/api/webhooks/clerk`). Select only the `user.created` event. Copy the generated signing secret and store it securely as an environment variable (`CLERK_WEBHOOK_SECRET`).",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Use the 'Send test webhook' feature in the Clerk dashboard to confirm the endpoint is reachable once the API route is deployed. The initial test will likely fail until the route is created, but it confirms the Clerk-side configuration."
           },
           {
@@ -296,7 +296,7 @@
             "description": "Implement the basic structure of the API route in the Next.js application that will receive and process incoming webhook requests from Clerk.",
             "dependencies": [],
             "details": "Create a new file at `app/api/webhooks/clerk/route.ts`. Define an async `POST` function to handle the incoming requests. Ensure the route is configured to read the raw request body, as this is required for signature verification.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Deploy the application with the basic API route. Trigger a test webhook from the Clerk dashboard and check the server logs to confirm the `POST` function is executed and receives a request."
           },
           {
@@ -307,7 +307,7 @@
               "5.2"
             ],
             "details": "Install the `svix` library. In the API route handler, use the `Webhook` class from `svix` to verify the request. Retrieve the `svix-id`, `svix-timestamp`, and `svix-signature` headers and the raw request body. Use the `CLERK_WEBHOOK_SECRET` environment variable to perform the verification. If verification fails, return a `400 Bad Request` response immediately.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Trigger a valid test webhook from Clerk and confirm it passes verification. Use a tool like cURL or Postman to send a request with an invalid or missing signature and confirm the route returns a `400` error."
           },
           {
@@ -318,7 +318,7 @@
               "5.3"
             ],
             "details": "Once the payload is verified, parse the JSON body. Check that the event `type` is `user.created`. From the `data` object within the payload, extract the user's `id`. This `id` will be used as the `clerk_id` in the Supabase table.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Add logging within the API route to print the parsed event type and the extracted user ID. Trigger a `user.created` event by signing up a new user and check the server logs to confirm the correct data is extracted."
           },
           {
@@ -329,7 +329,7 @@
               "5.4"
             ],
             "details": "Initialize the Supabase client within the API route. Construct an object to be inserted, mapping the Clerk user `id` to the `clerk_id` field and setting the `role` field to the default value of 'coach'. Use the Supabase client's `.from('users').insert()` method to add the new row to the database. Include error handling for potential database issues.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Create a new user via the Clerk sign-up flow. Verify that the webhook handler executes successfully and that a new corresponding record appears in the Supabase `users` table with the correct `clerk_id` and the 'coach' role."
           }
         ]
@@ -344,7 +344,7 @@
         "dependencies": [
           2
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -352,7 +352,7 @@
             "description": "Set up the Sanity client instance and create reusable server-side functions for fetching content. This includes creating a function to get all 'post' documents and another to get a single 'page' document by its slug.",
             "dependencies": [],
             "details": "In a new `lib/sanity.ts` file, initialize the Sanity client using environment variables. Export two async functions: `getAllPosts()` which performs a GROQ query for `*[_type == \"post\"]`, and `getPageBySlug(slug)` which queries for `*[_type == \"page\" && slug.current == $slug][0]`. These functions will be used by the page components.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Create test scripts or temporarily call these functions from a page's `console.log` to verify that they successfully connect to Sanity and return the expected array of posts and single page objects."
           },
           {
@@ -363,7 +363,7 @@
               "6.1"
             ],
             "details": "Create a new page route at `/app/news/page.tsx`. Use the `getAllPosts()` function from the Sanity lib to fetch the data. Map over the returned posts to render a grid or list of article cards. Each card should display the post's title, publication date, and a link to the full article. Style the layout using Tailwind CSS.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "With sample 'post' documents in the CMS, navigate to the `/news` page in the local development environment. Verify that all posts are listed and that the links are correctly formatted (e.g., `/news/my-first-post`)."
           },
           {
@@ -374,7 +374,7 @@
               "6.1"
             ],
             "details": "Create a dynamic route at `/app/news/[slug]/page.tsx`. Fetch the specific post data using its slug. Install `@portabletext/react` and use the `<PortableText>` component to render the `body` field from the fetched post data. Display the post title and other metadata. This is the first implementation of the Portable Text renderer.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Click on a link from the `/news` page. Verify the correct article's title and body are displayed. Check that basic rich text elements like paragraphs and headings are rendered."
           },
           {
@@ -386,7 +386,7 @@
               "6.3"
             ],
             "details": "Create a dynamic route at the root level, `/app/[slug]/page.tsx`. This page will use the `getPageBySlug()` function to fetch the corresponding 'page' document. It will then render the page's `title` and `body`, reusing the `<PortableText>` component implementation from the individual news article page.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Create 'page' documents in Sanity with slugs like 'our-philosophy' and 'tryout-info'. Navigate to `/our-philosophy` and `/tryout-info` and verify that the correct content is fetched and rendered by the template."
           },
           {
@@ -398,7 +398,7 @@
               "6.4"
             ],
             "details": "Create a custom components object to pass to the `<PortableText>` renderer. In this object, define React components for various block types (`h1`, `h2`, `blockquote`, `ul`) and mark types (`link`). Apply specific Tailwind CSS classes within these components to ensure consistent typography and spacing for all rich text content.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Create a test page or post in Sanity that includes all possible rich text elements (all heading levels, lists, blockquotes, links). View this page in the browser and confirm that every element is styled correctly and consistently according to the design specifications."
           }
         ]
@@ -414,7 +414,7 @@
           5,
           6
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -422,7 +422,7 @@
             "description": "Create a Next.js route group, such as `/(portal)`, and configure Clerk's middleware to protect all routes within it. This ensures that only authenticated users can access the content library, redirecting any unauthenticated requests to the sign-in page.",
             "dependencies": [],
             "details": "Modify the `middleware.ts` file to add `/(portal)(.*)` to the `protectedRoutes` array. Create a new directory structure `app/(portal)/` and add a basic `layout.tsx` and `page.tsx` file to establish the protected area.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Attempt to navigate to a URL within the `/portal` path while not logged in. Verify that the application redirects to the `/sign-in` page. After logging in, confirm access to the portal page is granted."
           },
           {
@@ -433,7 +433,7 @@
               "7.1"
             ],
             "details": "Use Clerk's `auth()` helper function to get the `userId`. Initialize the Supabase client and perform a `SELECT role FROM users WHERE clerk_id = $1` query, using the Clerk `userId` as the parameter. Handle the case where a user might not have a corresponding entry or role in Supabase.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Log in as a user with a known role (e.g., 'coach') in the Supabase `users` table. Add a temporary `console.log` in the server component to verify that the correct role string is successfully fetched."
           },
           {
@@ -442,7 +442,7 @@
             "description": "Create a reusable data-fetching function that queries Sanity for `guide` documents. This function must accept a user's role as an argument and use it within the GROQ query to filter guides where the `targetRole` field matches the provided role.",
             "dependencies": [],
             "details": "Create a new function, for example `getGuidesByRole(role: string)`. The function will use the Sanity client to execute a GROQ query like `*[_type == \"guide\" && targetRole == $role]`. The `role` argument will be passed as a parameter to the query.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test the function in isolation by calling it directly with 'coach' and verifying it returns only guides with `targetRole` set to 'coach'. Repeat the test with a different role to ensure the filtering is dynamic and correct."
           },
           {
@@ -454,7 +454,7 @@
               "7.3"
             ],
             "details": "In a page component like `app/(portal)/guides/page.tsx`, get the user's role. Call the `getGuidesByRole` function with the role. Map over the returned array of guides to render them as cards or a list, displaying fields like `title`, `summary`, and a link to the full guide.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Log in as a user with the 'coach' role. Navigate to the guides page in the portal. Verify that the UI correctly renders only the guides intended for coaches. Check that the layout is clean and all expected data points are visible."
           },
           {
@@ -466,7 +466,7 @@
               "7.4"
             ],
             "details": "In the `app/(portal)/layout.tsx`, fetch the user's role and pass it to `{children}`. The page component will receive this role and use it for data fetching. If the Sanity query returns an empty array, the page should render a user-friendly message, such as 'No content is currently available for your role.'",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Log in as a user whose role has no corresponding guides in Sanity. Verify that the page displays the 'no content available' message instead of an error or a blank section. Confirm that users with content see the content as expected."
           }
         ]
@@ -481,7 +481,7 @@
         "dependencies": [
           5
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -489,7 +489,7 @@
             "description": "Develop a new page accessible only to users with the 'admin' role. This page will serve as the interface for the bulk user import functionality.",
             "dependencies": [],
             "details": "Create a new route, for example `/admin/import-users`. Implement server-side logic to check the current user's session and metadata from Clerk. If the user's public metadata does not contain `role: 'admin'`, redirect them or show an 'Access Denied' message.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Log in as a non-admin user and attempt to access the `/admin/import-users` URL; verify redirection or access denial. Log in as an admin user and verify the page loads successfully."
           },
           {
@@ -500,7 +500,7 @@
               "8.1"
             ],
             "details": "On the admin page, add a form with an `<input type=\"file\" accept=\".csv\">`. Use client-side JavaScript to provide immediate feedback and enable a submit button only when a valid CSV file is selected. The form should submit the file as multipart/form-data to a dedicated API route or server action.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "On the admin import page, test the file input. Verify it filters for or only accepts CSV files. Confirm that selecting a valid CSV file enables the upload button and that submitting the form sends a request to the backend."
           },
           {
@@ -511,7 +511,7 @@
               "8.2"
             ],
             "details": "Implement a Next.js API route or Server Action to handle the file upload. Use a library like 'papaparse' to parse the CSV stream. Validate that the CSV contains the required headers (e.g., 'email', 'firstName', 'lastName', 'club_id'). Handle potential errors like malformed rows or missing headers gracefully.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Use an API client like Postman to send various CSV files to the endpoint. Test with a correctly formatted file, a file with missing headers, and a file with empty rows. Verify that the API returns a parsed JSON array on success and a descriptive error message on failure."
           },
           {
@@ -522,7 +522,7 @@
               "8.3"
             ],
             "details": "In the backend logic, iterate through the array of parsed users. For each user, call the Clerk Backend API's `users.createUser` method. Pass the required fields like `emailAddress`, `firstName`, and `lastName`. This will create the user in Clerk and trigger the invitation flow.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Trigger the import process with a valid CSV containing test email addresses. Check the Clerk Dashboard to confirm that new users are created with an 'Invited' status. Verify that invitation emails are received at the test addresses."
           },
           {
@@ -533,7 +533,7 @@
               "8.4"
             ],
             "details": "After a successful response from the `clerkClient.users.createUser` call, extract the new user's Clerk ID. Use the Supabase client to insert a new row into the `users` table. Populate the `clerk_id` with the new ID, set the `role` column to 'coach', and link the `club_id` from the CSV data.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "After a successful bulk import, query the Supabase `users` table. Verify that a new record exists for each imported user, containing the correct `clerk_id`, a `role` of 'coach', and the appropriate `club_id`."
           }
         ]
@@ -548,7 +548,7 @@
         "dependencies": [
           7
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -556,7 +556,7 @@
             "description": "Set up the file-based routing in the Next.js application to handle dynamic age category pages under the curriculum portal.",
             "dependencies": [],
             "details": "Create the directory structure `app/portal/curriculum/[ageCategory]/` and add a `page.tsx` file. This file will serve as the main component for displaying guides related to a specific age group.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Navigate to a sample URL like `/portal/curriculum/u10` in the browser. Verify that the newly created page component renders a basic placeholder text without errors."
           },
           {
@@ -567,7 +567,7 @@
               "9.1"
             ],
             "details": "In the `app/portal/curriculum/[ageCategory]/page.tsx` component, access the `ageCategory` from the `params` object. Construct and execute a GROQ query to fetch all `guide` documents where the `ageCategory` field matches the dynamic parameter.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Add a `console.log` statement to output the fetched data on the server. Navigate to `/portal/curriculum/u12` and verify in the terminal logs that an array of guide objects, correctly filtered for the 'U12' category, is returned from Sanity."
           },
           {
@@ -576,7 +576,7 @@
             "description": "Create a reusable React component to visually represent a single guide in the list, displaying its title and summary.",
             "dependencies": [],
             "details": "Create a new component, for example, `GuideListItem.tsx`. This component will accept a single `guide` object as a prop and render its `title` and `summary` fields. Style the component using Tailwind CSS to create a card-like layout.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Render the component on a temporary test page or using Storybook with mock `guide` data to ensure it displays the title and summary correctly and matches the intended design."
           },
           {
@@ -588,7 +588,7 @@
               "9.3"
             ],
             "details": "In `app/portal/curriculum/[ageCategory]/page.tsx`, import the `GuideListItem` component. Map over the array of guides returned from the Sanity query and render a `GuideListItem` for each guide, passing the individual guide data as props.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Populate Sanity with test guides for different age categories (e.g., 'U10', 'U12'). Navigate to `/portal/curriculum/u10` and `/portal/curriculum/u12` and verify that each page displays only the list of guides corresponding to its age category."
           },
           {
@@ -599,7 +599,7 @@
               "9.4"
             ],
             "details": "Modify the `GuideListItem.tsx` component. Wrap the component's content with a Next.js `<Link>` component. The link's `href` attribute should be dynamically constructed using the guide's slug, pointing to a future route like `/portal/curriculum/guides/${guide.slug.current}`.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Load an age category page and inspect the rendered HTML to ensure each guide item is wrapped in an `<a>` tag with the correct `href` value. Clicking a guide should attempt to navigate to the correct detailed view URL."
           }
         ]
@@ -614,7 +614,7 @@
         "dependencies": [
           7
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -622,7 +622,7 @@
             "description": "Set up the basic file structure and routing for the new Recruitment & Club Growth page within the secure portal.",
             "dependencies": [],
             "details": "In the Next.js project, create a new route at `/portal/club-growth` by adding a `page.tsx` file. Implement a basic page component that will serve as the container for the resource center content. This page should be part of the secure `/(portal)` route group.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Run the development server and navigate to `/portal/club-growth`. Verify that the basic page component renders without errors, assuming a logged-in state."
           },
           {
@@ -633,7 +633,7 @@
               "10.1"
             ],
             "details": "Modify the shared navigation component used within the secure portal. Fetch the current user's role (as established in Task 7). Use conditional rendering to display a navigation link to 'Recruitment & Club Growth' (`/portal/club-growth`) if the user's role is 'staff'.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Log in as a 'staff' user and confirm the navigation link is visible. Log in as a 'coach' user and confirm the link is not visible."
           },
           {
@@ -644,7 +644,7 @@
               "10.1"
             ],
             "details": "In the `page.tsx` component for `/portal/club-growth`, implement an async server component function to fetch data. Use the Sanity client to execute the following GROQ query: `*[_type == \"guide\" && targetRole == \"staff\"]{title, slug, summary}`. Pass the fetched data as a prop to the page component.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Create at least two 'guide' documents in Sanity and tag them with `targetRole`: 'staff'. Manually run the fetch function or check the page component's props to ensure the correct data is being retrieved."
           },
           {
@@ -655,7 +655,7 @@
               "10.3"
             ],
             "details": "On the `/portal/club-growth` page, map over the array of guides received from the data fetching step. For each guide, render a reusable card or list item component that displays its `title` and `summary`. Each item should be a link pointing to the full guide details page (e.g., `/portal/guides/[slug]`).",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "With mock data or data from Sanity, verify that the list of guides renders correctly on the page. Check that titles and summaries are displayed and that the links are correctly formatted."
           },
           {
@@ -667,15 +667,789 @@
               "10.4"
             ],
             "details": "In the `/portal/club-growth` page server component, retrieve the user's role. Add a check at the beginning of the component: if the role is not 'staff', use the `redirect` function from `next/navigation` to send the user to a different page (e.g., the portal dashboard) or show an access denied message.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Log in as a 'staff' user and verify full access to the page and its content. Log in as a 'coach' user and attempt to navigate directly to `/portal/club-growth`. Confirm that you are redirected or see an access denied message, and that the page content is not rendered."
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Build BTPP Website Home Page",
+        "description": "Design and implement the main public-facing home page for the BTPP website, styled as a modern, distraction-free landing page. This page will serve as the primary entry point to the talent pool program, featuring a hero section without the main site header, filterable news, a section for national team exhibition games, and a comprehensive footer.",
+        "status": "done",
+        "dependencies": [
+          1,
+          6,
+          9
+        ],
+        "priority": "high",
+        "details": "The home page will be built as the root page (`/`) in the Next.js application, following a clean, modern, and conversion-focused style. It will be a statically generated public page that fetches dynamic content from Sanity. The page must be fully responsive and adhere to the established Defensie design system.\n\nKey architectural requirement: The main site header navigation must be hidden on the home page to create a focused, immersive landing experience. The header will be visible on all other inner pages of the site.\n\nThe page structure will include:\n1. **Hero Section:** A full-width section at the top with a compelling background, a primary headline about the talent pool program, a supportive sub-headline, a prominent Call-to-Action (CTA) button, and a secondary \"Staff Login\" button linking to `/staff-login`.\n2. **Talent Pool Categories Section:** A prominent section featuring clickable category cards for U14, U16, National Teams U18, and U20. Each card will link to a dedicated category page (e.g., `/talentpools/[category]`)\n3. **News Section:** A dynamic section that fetches recent `post` documents from all categories, with a filtering mechanism to sort by category.\n4. **Exhibition Games Section:** A new section dedicated to showcasing upcoming and past exhibition games for the National Teams (U18, U20). It will display match details, results, and links to ticketing or registration information where available.\n5. **Footer:** A comprehensive, multi-column footer containing quick links (Home, News, Categories), contact information, social media links, legal links (Privacy Policy, Terms of Service), and club/organization details.",
+        "testStrategy": "1. Load the home page (`/`) and verify that the main site header/navigation is NOT visible.\n2. Navigate to an inner page (e.g., a news article) and verify the main site header IS visible.\n3. On the home page, verify that all sections (Hero, Talent Pool Categories, News, Exhibition Games, Footer) render correctly without layout issues on desktop, tablet, and mobile viewports.\n4. Confirm the main CTA button and the \"Staff Login\" button in the hero section link to their correct destinations (e.g., sign-up page and `/staff-login` respectively).\n5. Verify that the links in the 'Talent Pool Categories' section navigate to the correct dynamic category pages.\n6. Test the 'News' section functionality, including the category filters and 'Read More' links.\n7. Test the 'Exhibition Games' section: confirm it correctly fetches and displays upcoming and past games from Sanity, and that any ticket links are functional.\n8. Check all links in the footer to ensure they point to the correct destinations.\n9. Run a Lighthouse audit to check for performance, accessibility, and SEO best practices.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Update Sanity Schemas for News and Exhibition Games",
+            "description": "Modify the `post` schema to include categories and create a new `exhibitionGame` schema for national team matches.",
+            "status": "done",
+            "dependencies": [],
+            "details": "1. **Post Schema:** In the Sanity project, edit the `post.ts` schema file. Add a new field, `category`, of type `string` with a `list` of allowed options: 'U14', 'U16', 'U18', 'U20'.\n2. **Exhibition Game Schema:** Create a new schema file `exhibitionGame.ts`. Define fields for `title` (string), `date` (datetime), `opponent` (string), `location` (string), `status` (string list: 'upcoming', 'completed'), `result` (string, optional), and `ticketLink` (url, optional).\n3. Deploy changes and populate with test data.",
+            "testStrategy": "Open the Sanity Studio. Confirm the 'Category' field exists on posts. Confirm the new 'Exhibition Game' type can be created with all its fields and populated with data."
+          },
+          {
+            "id": 2,
+            "title": "Implement Enhanced Hero Section with Staff Login",
+            "description": "Build the static Hero Section with a primary CTA and a 'Staff Login' button.",
+            "status": "done",
+            "dependencies": [],
+            "details": "Create the main page file at `app/page.tsx` and a `HeroSection.tsx` component. Style it according to the Defensie design system. Include a headline, sub-headline, background, a main CTA button (e.g., to sign-up), and a secondary 'Staff Login' button linking to `/staff-login`.",
+            "testStrategy": "Load the root URL (`/`). Verify the Hero Section renders correctly. Check that both the CTA and 'Staff Login' buttons are present and link to the correct pages."
+          },
+          {
+            "id": 3,
+            "title": "Build Static Talent Pool Categories Section",
+            "description": "Create the 'Talent Pool Categories' section with clickable cards for each category (U14, U16, U18, U20).",
+            "status": "done",
+            "dependencies": [
+              2
+            ],
+            "details": "Create a new static component, e.g., `components/sections/TalentPoolCategories.tsx`. Use a grid layout to display four distinct cards, each linking to its respective category page (e.g., `/talentpools/u14`).",
+            "testStrategy": "Verify the section renders on the home page with four clickable cards. Clicking a card should navigate to the correct URL."
+          },
+          {
+            "id": 4,
+            "title": "Implement Dynamic News Section with Filtering",
+            "description": "Build the 'News' section that fetches all recent posts and includes client-side controls to filter them by category.",
+            "status": "done",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a new component `components/sections/NewsSection.tsx`. This component will fetch all recent posts and their assigned categories from Sanity. Implement UI controls (e.g., buttons) to filter posts by category using React state.",
+            "testStrategy": "Verify the news section loads posts. Test the category filters to ensure the post list updates correctly. Check 'Read More' links."
+          },
+          {
+            "id": 5,
+            "title": "Implement Dynamic Exhibition Games Section",
+            "description": "Build the 'Exhibition Games' section to display upcoming and past national team matches.",
+            "status": "done",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a new component `components/sections/ExhibitionGamesSection.tsx`. This component will fetch `exhibitionGame` documents from Sanity. It should be designed to visually separate 'upcoming' games from 'completed' games (showing results). Links to tickets should be displayed where available.",
+            "testStrategy": "Load the home page and verify the section renders with the sample game data from Sanity. Check that upcoming and past games are displayed correctly and ticket links work."
+          },
+          {
+            "id": 6,
+            "title": "Implement Enhanced Footer",
+            "description": "Build the comprehensive, multi-column site footer with detailed navigation and information.",
+            "status": "done",
+            "dependencies": [],
+            "details": "Create or update the `components/layout/Footer.tsx` component. Implement a multi-column layout including sections for quick links (Home, News, etc.), contact information, social media links, legal links (Privacy, Terms), and club/organization details.",
+            "testStrategy": "Verify the footer renders correctly with all specified sections and that all links are functional."
+          },
+          {
+            "id": 7,
+            "title": "Finalize Page Assembly, Responsiveness, and QA",
+            "description": "Assemble all sections on the home page, ensure full responsiveness, and perform a final quality assurance check.",
+            "status": "done",
+            "dependencies": [
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "details": "In `app/page.tsx`, import and arrange all sections in the correct order: Hero, Talent Pool Categories, News, Exhibition Games, Footer. Thoroughly review the page across mobile, tablet, and desktop viewports, adjusting responsive classes as needed to fix any layout or styling issues.",
+            "testStrategy": "Test the complete home page at various screen widths (e.g., 375px, 768px, 1024px, 1440px). Confirm all sections are present in the correct order and there are no layout breaks, content overflows, or visual regressions."
+          },
+          {
+            "id": 8,
+            "title": "Implement Conditional Header Rendering",
+            "description": "Modify the root layout to conditionally hide the main site header on the home page (`/`) to create a distraction-free landing experience, while ensuring it appears on all other pages.",
+            "status": "done",
+            "dependencies": [],
+            "details": "In the main `app/layout.tsx`, use a client component wrapper and the `usePathname` hook to determine the current route. Based on the path, conditionally render the `<Header>` component. The header should be hidden if the pathname is exactly `/` and visible for all other paths.",
+            "testStrategy": "Navigate to the home page and confirm the header is not visible. Navigate to any other page (e.g., `/talentpools/u14`, a news article) and confirm the header is visible."
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Build Talent Pool Category Pages",
+        "description": "Create dynamic, public-facing pages for each talent pool category (e.g., U14, U16). These pages will display category-specific content like news, events, and overviews, fetched from Sanity.",
+        "details": "Implement a dynamic route in Next.js using the App Router at `/talentpools/[category]`. The page component should extract the `category` slug from the URL parameters. Use this slug to query Sanity for all relevant content, including a category-specific hero section, a list of `event` documents filtered by this category, and a list of `post` documents also filtered by the category. The page should also display general information about the specific talent pool. Ensure there is clear navigation to other category pages and a link back to the main home page.",
+        "testStrategy": "1. Create sample news posts and events in Sanity, assigning them to different talent pool categories (e.g., 'u14', 'u16'). 2. Navigate directly to a category page, such as `/talentpools/u14`. 3. Verify that the hero section correctly displays 'U14' and its associated description. 4. Confirm that the news and events sections only show content tagged for 'u14'. 5. Test the navigation links to ensure they correctly lead to the home page and other category pages. 6. Attempt to navigate to a non-existent category (e.g., `/talentpools/invalid-category`) and verify that a 404 page is displayed.",
+        "status": "in-progress",
+        "dependencies": [
+          11,
+          6
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Dynamic Route and Page Layout for Talent Pool Categories",
+            "description": "Set up the file structure for the dynamic talent pool category pages using the Next.js App Router. Create a basic page component that extracts the category slug from the URL and establishes the main layout.",
+            "dependencies": [],
+            "details": "In the `app` directory, create the folder structure `talentpools/[category]`. Inside, create a `page.tsx` file. This server component should accept `params` as a prop to access the dynamic `category` slug. For the initial implementation, render a basic layout with a placeholder `<h1>` that displays the slug to confirm the route is working.",
+            "status": "done",
+            "testStrategy": "Start the Next.js development server. Navigate to a sample URL like `/talentpools/u14`. Verify that the page loads and displays a heading containing 'u14'. Test with another slug like `/talentpools/u16` to ensure the dynamic segment is being correctly captured."
+          },
+          {
+            "id": 2,
+            "title": "Fetch and Display Category-Specific Hero and General Information",
+            "description": "Implement the Sanity query to fetch the main details for a specific talent pool category based on the URL slug. This includes the category's title, description, and any associated hero imagery. Render this data in a hero section at the top of the page.",
+            "dependencies": [
+              "12.1"
+            ],
+            "details": "In the `page.tsx` component, create an async function to fetch data from Sanity. Use the `category` slug from `params` in a GROQ query to find the corresponding `talentPoolCategory` document. The query should select fields like `title`, `description`, and `heroImage`. Pass this data to a newly created `Hero` component for rendering. Display the general description content below the hero.",
+            "status": "done",
+            "testStrategy": "Ensure at least one `talentPoolCategory` document (e.g., for 'u14') exists in Sanity with a title and description. Navigate to `/talentpools/u14`. Verify the hero section correctly displays the title and description fetched from Sanity."
+          },
+          {
+            "id": 3,
+            "title": "Query and Render Associated 'Event' Documents",
+            "description": "Fetch and display a list of `event` documents from Sanity that are associated with the current talent pool category. The events should be displayed in a dedicated section on the page.",
+            "dependencies": [
+              "12.2"
+            ],
+            "details": "Modify the data fetching logic in `page.tsx` to also query for `event` documents. The GROQ query should filter events where a reference field (e.g., `category`) points to the `_id` of the current talent pool category. Create an `EventList` component that accepts the array of events and renders them as cards, displaying key information like title and date.\n<info added on 2025-08-20T09:16:56.565Z>\nThe EventList component and getEventsByCategory function are implemented and working correctly. The page.tsx in /talentpools/[category] calls getEventsByCategory(categoryData._id). The getEventsByCategory function in sanityClient.ts uses the correct GROQ query with references($categoryId) to filter events by talent pool category. The EventList component renders events as cards with title, date, venue, description, and links to event detail pages, and handles the empty state when no events are found. The event schema includes the 'categories' field as an array of references to talentPoolCategory documents. The implementation follows the task requirements, querying events from Sanity based on the current talent pool category ID and rendering them in a clean, responsive grid layout.\n</info added on 2025-08-20T09:16:56.565Z>",
+            "status": "done",
+            "testStrategy": "In Sanity, create several `event` documents, assigning some to the 'u14' category and others to 'u16'. Navigate to `/talentpools/u14` and confirm that only the U14 events are listed. Check that `/talentpools/u16` shows only U16 events."
+          },
+          {
+            "id": 4,
+            "title": "Query and Render Associated 'Post' (News) Documents",
+            "description": "Fetch and display a list of `post` (news) documents from Sanity that are tagged with the current talent pool category. These posts should appear in a separate 'News' or 'Updates' section.",
+            "dependencies": [
+              "12.2"
+            ],
+            "details": "Similar to the events task, expand the data fetching to include a query for `post` documents. Filter the posts using a reference to the current category's `_id`. Create a `PostList` component to render the fetched posts, each showing a title, summary/excerpt, and publication date. Place this section on the page.\n<info added on 2025-08-20T09:21:39.899Z>\nImplementation completed. A PostList component was created at /components/talentpools/PostList.tsx with a responsive design matching the EventList styling. The category page at /talentpools/[category]/page.tsx was updated to query posts using getPostsByCategory(categoryData._id) and render them below the events section.\n\nThe PostList component features a responsive grid layout (1, 2, and 3 columns). Post cards display an image, published date, title, excerpt, author, and a \"Read More\" link to /news/[slug]. The component also handles the empty state when no posts are found and includes professional styling with hover effects.\n\nThis integration uses the existing getPostsByCategory function and leverages the post schema's category reference, following the same pattern as the EventList component for consistency. Each talent pool category page now displays relevant news posts filtered by that category.\n</info added on 2025-08-20T09:21:39.899Z>",
+            "status": "done",
+            "testStrategy": "In Sanity, create several `post` documents and associate them with the 'u14' category. Navigate to `/talentpools/u14` and verify that the correct news posts are displayed in their own section on the page."
+          },
+          {
+            "id": 5,
+            "title": "Implement Inter-Category Navigation and Home Link",
+            "description": "Add a navigation component to the page that allows users to easily switch between different talent pool category pages. Also, ensure a clear link back to the main home page is present.",
+            "dependencies": [
+              "12.1"
+            ],
+            "details": "Create a new server component, `CategoryNavigation`. This component will perform its own Sanity query to fetch all `talentPoolCategory` documents, selecting only their `title` and `slug`. It will then render a list of Next.js `<Link>` components, one for each category, pointing to `/talentpools/[slug]`. Integrate this component into the `page.tsx` layout. Add a separate, prominent link to `/`.\n<info added on 2025-09-13T09:10:40.201Z>\nThe `CategoryNavigation` component has been created at `/components/talentpools/CategoryNavigation.tsx`. It uses the `getAllTalentPoolCategories()` function for data fetching. The component shows the current category with an active styling and disabled state, and includes a \"View All Talent Pools\" link to `/#talent-pools`. It has been integrated into the talent pool category page sidebar as the first section and utilizes the existing Button component from the workspace UI package. The implementation is fully typed and responsive.\n</info added on 2025-09-13T09:10:40.201Z>",
+            "status": "done",
+            "testStrategy": "With 'u14' and 'u16' categories defined in Sanity, navigate to `/talentpools/u14`. Verify that navigation links for both 'U14' and 'U16' are visible. Clicking the 'U16' link should take the user to the `/talentpools/u16` page. Verify the home link works."
+          },
+          {
+            "id": 6,
+            "title": "Implement Loading/Error States and Dynamic SEO Metadata",
+            "description": "Finalize the page by adding loading states for data fetching, handling cases where a category is not found (404), and implementing dynamic SEO metadata for better search engine visibility.",
+            "dependencies": [
+              "12.2",
+              "12.3",
+              "12.4"
+            ],
+            "details": "Create a `loading.tsx` file in the `talentpools/[category]` directory to show a skeleton UI while data is being fetched. In `page.tsx`, check if the initial category query returns null; if so, call `notFound()` from `next/navigation`. Implement the `generateMetadata` function in `page.tsx` to dynamically set the page `<title>` and `<meta name=\"description\">` using the fetched category's title and description fields.",
+            "status": "pending",
+            "testStrategy": "1. Navigate to a non-existent category like `/talentpools/invalid-slug` and verify a 404 page is displayed. 2. Throttle network speed in browser dev tools and reload a valid page to observe the loading UI. 3. Load a valid page like `/talentpools/u14` and inspect the browser tab's title and the page's HTML `<head>` to confirm the metadata is set dynamically."
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Define and Implement Sanity Content Schemas for Talent Pool System",
+        "description": "Create and update Sanity schemas for the talent pool system, including new types for categories and events, and linking them to existing posts. This task also involves creating the initial category documents and deploying the updated Sanity studio.",
+        "details": "1. **Create `talentPoolCategory` Schema:** In the Sanity schema directory, create a new file for `talentPoolCategory`. Define the schema with the following fields: `title` (string), `slug` (slug, with source set to 'title'), `description` (text), and `heroImage` (image with hotspot enabled).\n2. **Update `post` Schema:** Modify the existing `post` schema file. Add a new reference field named `talentPoolCategory` that points to the `talentPoolCategory` type. This will allow news articles to be associated with a specific talent pool.\n3. **Create `event` Schema:** Create a new schema file for `event`. Define it with fields for `title` (string), `description` (text), `date` (datetime), `location` (string), `imageUrl` (image), and a `category` field (reference to `talentPoolCategory`).\n4. **Register New Schemas:** Add the new `talentPoolCategory` and `event` schemas to the `schema.types` array in your `sanity.config.ts` or `deskStructure.ts` file to make them active in the studio.\n5. **Deploy Studio:** Deploy the updated Sanity Studio using the `sanity deploy` command to make the new schemas and fields live.\n6. **Create Initial Documents:** After deployment, log into the Sanity Studio and manually create four `talentPoolCategory` documents: 'U14', 'U16', 'U18', and 'U20', ensuring their slugs are generated correctly.",
+        "testStrategy": "1. After deploying the studio, log in and verify that 'Talent Pool Category' and 'Event' appear as new content types in the studio's navigation pane.\n2. Attempt to create a new 'Talent Pool Category' document. Confirm that all fields (title, slug, description, heroImage) are present and function as expected.\n3. Edit an existing 'Post' document. Verify that a new 'Talent Pool Category' reference field is visible and allows you to select one of the categories created in the previous step.\n4. Create a new 'Event' document. Confirm all fields are present and that you can successfully link it to a 'Talent Pool Category'.\n5. Verify that the four initial category documents (U14, U16, U18, U20) exist in the studio and can be queried via the API.",
+        "status": "done",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create `talentPoolCategory` Schema Definition",
+            "description": "Define and implement the schema for 'Talent Pool Categories'. This schema will be used to categorize talent pool related content like posts and events.",
+            "dependencies": [],
+            "details": "In the Sanity project's schema directory, create a new file named `talentPoolCategory.ts`. Define a document schema with `name: 'talentPoolCategory'` and `title: 'Talent Pool Category'`. Add the following fields: `title` (type: 'string'), `slug` (type: 'slug', with options: `{ source: 'title' }`), `description` (type: 'text'), and `heroImage` (type: 'image', with options: `{ hotspot: true }`).",
+            "status": "done",
+            "testStrategy": "Run the local Sanity Studio using `sanity dev`. Check the terminal for any schema validation errors. The new type will not be visible in the studio UI until it's registered in a later step."
+          },
+          {
+            "id": 2,
+            "title": "Create `event` Schema Definition",
+            "description": "Define and implement the schema for 'Events'. Events will be associated with a specific talent pool category.",
+            "dependencies": [
+              "13.1"
+            ],
+            "details": "In the schema directory, create a new file named `event.ts`. Define a document schema with `name: 'event'` and `title: 'Event'`. Add fields for `title` (string), `description` (text), `date` (datetime), `location` (string), `imageUrl` (image), and a `category` field which is a reference to the `talentPoolCategory` type (`type: 'reference', to: [{ type: 'talentPoolCategory' }]`).",
+            "status": "done",
+            "testStrategy": "Run the local Sanity Studio using `sanity dev`. Check the terminal for any schema validation errors related to the new event schema or its reference to `talentPoolCategory`."
+          },
+          {
+            "id": 3,
+            "title": "Update `post` Schema and Register New Schema Types",
+            "description": "Modify the existing `post` schema to allow linking to a `talentPoolCategory` and register both the new `talentPoolCategory` and `event` schemas to make them active in the studio.",
+            "dependencies": [
+              "13.1",
+              "13.2"
+            ],
+            "details": "1. Open the existing `post` schema file. Add a new field named `talentPoolCategory` defined as a reference to the `talentPoolCategory` type (`type: 'reference', to: [{ type: 'talentPoolCategory' }]`). Make this field optional. 2. Open your main schema configuration file (e.g., `sanity.config.ts` or `schema.ts`). Import the `talentPoolCategory` and `event` schemas and add them to the `schema.types` array.",
+            "status": "done",
+            "testStrategy": "Run the local Sanity Studio. Verify that 'Talent Pool Category' and 'Event' now appear as new, creatable content types in the studio's navigation pane. Open an existing 'Post' document and confirm the new 'Talent Pool Category' reference field is present and functional."
+          },
+          {
+            "id": 4,
+            "title": "Deploy Updated Sanity Studio",
+            "description": "Deploy the schema changes to the hosted Sanity Studio environment, making the new content types and fields available for content editors.",
+            "dependencies": [
+              "13.3"
+            ],
+            "details": "After committing all local schema changes to your version control system, run the `sanity deploy` command in your terminal from the Sanity project directory. Follow the CLI prompts to build and deploy the studio.",
+            "status": "done",
+            "testStrategy": "Once the deployment is complete, navigate to the production URL of your Sanity Studio. Log in and verify that the 'Talent Pool Category' and 'Event' content types are present. Confirm that the `talentPoolCategory` reference field is visible and usable within the 'Post' content type."
+          },
+          {
+            "id": 5,
+            "title": "Create Initial Talent Pool Category Documents",
+            "description": "Log into the deployed Sanity Studio and create the initial set of `talentPoolCategory` documents required for the application.",
+            "dependencies": [
+              "13.4"
+            ],
+            "details": "Access the live Sanity Studio. Navigate to the 'Talent Pool Category' section. Create and publish four new documents with the following titles: 'U14', 'U16', 'U18', and 'U20'. Ensure the slug for each is generated correctly from the title before publishing.",
+            "status": "done",
+            "testStrategy": "After creating the documents, use the Vision plugin in the Sanity Studio or a frontend query to fetch all documents of type `talentPoolCategory`. Verify that the four new categories exist and their data (title, slug) is correct."
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Implement Staff Authentication and Role-Based Redirection",
+        "description": "Create a dedicated, professional sign-in system for staff (admins, coaches, club owners). This includes a new login page, role-based redirection to appropriate dashboards upon successful authentication, and password reset functionality. Access will be provided via a button on the home page's hero section and a link in the header on all other pages.",
+        "status": "pending",
+        "dependencies": [
+          5,
+          7,
+          8,
+          9
+        ],
+        "priority": "high",
+        "details": "Implement a new authentication flow specifically for non-player users. Create a new page at `/staff-login` using Clerk's `<SignIn>` component, styled with a professional and clean design to distinguish it from the main user sign-up. Configure the component's `afterSignInUrl` to point to a new page or API route (e.g., `/auth/redirect`) that will handle role-based redirection. This redirection logic will fetch the authenticated user's role from the Supabase `users` table (using the pattern established in Task #7) and redirect them accordingly: 'admin' to `/admin/dashboard`, 'coach' to `/portal/curriculum`, and 'club-owner' to a future `/portal/club-management` page. A simple placeholder page should be created at `/admin/dashboard` to serve as the admin landing page. Update the global header component to conditionally display a 'Staff Login' link; this link should be visible on all inner pages but hidden on the home page. Ensure the password reset functionality within the Clerk component is correctly configured and styled for this page.",
+        "testStrategy": "1. Verify the 'Staff Login' button on the home page (implemented in another task) navigates to `/staff-login`. Verify the 'Staff Login' link is visible in the header on an inner page (e.g., `/portal/curriculum`) and correctly navigates to `/staff-login`. Confirm the link is NOT present in the header on the home page. 2. Confirm the login page has a unique, professional design. 3. Log in as a user with the 'admin' role (created via Task #8) and verify you are redirected to `/admin/dashboard`. 4. Log out and log back in as a user with the 'coach' role. Verify you are redirected to the curriculum portal (e.g., `/portal/curriculum`). 5. Test the password reset flow from the `/staff-login` page to ensure it functions correctly for staff accounts. 6. While logged in as a coach, attempt to manually navigate to `/admin/dashboard` and confirm access is denied.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create the `/staff-login` Page with the Clerk `<SignIn>` Component",
+            "description": "Create a new page route at `/staff-login` in the Next.js application. Add the standard Clerk `<SignIn>` component to this page to provide the basic login functionality. This will serve as the foundation for the staff-specific authentication flow.",
+            "status": "pending",
+            "dependencies": [],
+            "details": "Using the Next.js App Router, create a `page.tsx` file within a new `app/staff-login/` directory. Import and render the `<SignIn>` component from `@clerk/nextjs`. At this initial stage, do not configure custom redirection or styling.",
+            "testStrategy": "Navigate to the `/staff-login` URL in your browser. Verify that the default, unstyled Clerk sign-in form is rendered and functional."
+          },
+          {
+            "id": 2,
+            "title": "Implement Conditional 'Staff Login' Link in Header",
+            "description": "Update the global header component to conditionally display a 'Staff Login' link. This link should appear on all internal pages but be hidden on the main home page, where a dedicated button will be used instead.",
+            "status": "pending",
+            "dependencies": [
+              1
+            ],
+            "details": "Modify the global header component. Use the `usePathname` hook from `next/navigation` to determine the current route. Conditionally render a Next.js `<Link>` component with the text 'Staff Login' and an `href` of `/staff-login` only when the pathname is not the root ('/'). Ensure its styling is consistent with other navigation elements.",
+            "testStrategy": "Navigate to an inner page (e.g., a news article or curriculum page) and verify the 'Staff Login' link is visible and functional in the header. Navigate to the home page and verify the link is not present in the header."
+          },
+          {
+            "id": 3,
+            "title": "Apply Custom Professional Styling to the Staff Login Page",
+            "description": "Apply custom CSS using Tailwind CSS to style the `/staff-login` page and the embedded Clerk `<SignIn>` component. The design must be professional, clean, and visually distinct from the main user sign-in page to clearly separate the user and staff authentication experiences.",
+            "status": "pending",
+            "dependencies": [
+              1
+            ],
+            "details": "Use the `appearance` prop on the `<SignIn>` component to customize its elements (card, buttons, inputs) via Clerk's variable system or custom classes. Style the surrounding page layout (e.g., centering the form, adding a background, or a company logo). Ensure the integrated password reset flow inherits the same professional styling.",
+            "testStrategy": "Visually inspect the `/staff-login` page to confirm the custom styling is applied and looks distinct from `/sign-in`. Trigger the 'Forgot Password?' flow to ensure its modals/pages are also styled correctly."
+          },
+          {
+            "id": 4,
+            "title": "Create the Placeholder Admin Dashboard Page",
+            "description": "Create a new, simple page at `/admin/dashboard`. This page will serve as the landing destination for users with the 'admin' role after they successfully authenticate through the staff login.",
+            "status": "pending",
+            "dependencies": [],
+            "details": "Create a new route by adding a `page.tsx` file inside an `app/admin/dashboard/` directory. The page should be a server component that contains a simple heading like `<h1>Admin Dashboard</h1>` and some placeholder text. This route will be protected in a later step.",
+            "testStrategy": "Manually navigate to `/admin/dashboard` (while logged in with any account for now) and verify that the placeholder page with the title 'Admin Dashboard' is rendered."
+          },
+          {
+            "id": 5,
+            "title": "Implement the `/auth/redirect` Handler for Role-Based Logic",
+            "description": "Create a new server-side page or API route at `/auth/redirect` that will handle the post-login redirection. This handler will fetch the authenticated user's role from the Supabase `users` table and redirect them to the appropriate dashboard.",
+            "status": "pending",
+            "dependencies": [
+              4
+            ],
+            "details": "Create a new route handler (e.g., `app/auth/redirect/page.tsx` as a server component). Use Clerk's `auth()` helper to get the `userId`. Use the Supabase client to query the `users` table for the record matching the Clerk `userId`. Based on the retrieved `role` ('admin', 'coach', 'club-owner'), use the `redirect` function from `next/navigation` to send the user to the correct path (`/admin/dashboard`, `/portal/curriculum`, `/portal/club-management`). Include a fallback redirect to a default page.",
+            "testStrategy": "This route is hard to test in isolation. Its functionality will be verified in the next step. You can add `console.log` statements to verify role fetching during development."
+          },
+          {
+            "id": 6,
+            "title": "Configure Clerk `<SignIn>` to Use the Redirection Handler",
+            "description": "Update the `<SignIn>` component on the `/staff-login` page to use the new `/auth/redirect` handler after a successful sign-in, connecting the login UI to the role-based redirection logic.",
+            "status": "pending",
+            "dependencies": [
+              1,
+              5
+            ],
+            "details": "In the `app/staff-login/page.tsx` file, modify the `<SignIn>` component. Add the `afterSignInUrl` prop and set its value to `/auth/redirect`. This tells Clerk to send the user to your custom handler instead of its default destination.",
+            "testStrategy": "Using a test account with the 'admin' role, log in via the `/staff-login` page. Verify you are successfully redirected to `/admin/dashboard`. Repeat for a 'coach' role, verifying redirection to `/portal/curriculum`."
+          },
+          {
+            "id": 7,
+            "title": "Secure Staff Routes via Middleware and Finalize Testing",
+            "description": "Update the application's middleware to protect the new staff-specific routes. Perform a full end-to-end test of the entire staff authentication and redirection flow for all defined roles to ensure security and correctness.",
+            "status": "pending",
+            "dependencies": [
+              2,
+              3,
+              6
+            ],
+            "details": "In `middleware.ts`, add `/admin/dashboard` and the future `/portal/club-management` to the list of protected routes. Ensure the middleware correctly redirects any unauthenticated users attempting to access these routes to the appropriate login page (e.g., `/staff-login`).",
+            "testStrategy": "1. Log out and attempt to navigate directly to `/admin/dashboard`; verify you are redirected to a login page. 2. Log in as an 'admin' and confirm successful redirection and access. 3. Log in as a 'coach' and confirm redirection. 4. Confirm a regular player user cannot access `/admin/dashboard` (they should be redirected away)."
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Enhance Talent Pool Category Cards with Images and Hover Effects",
+        "description": "Update the talent pool category cards on the home page to be more visually engaging. This involves incorporating background images for each category, increasing card size, and adding interactive hover effects for animation and information display.",
+        "details": "Locate the component responsible for rendering the list of talent pool categories on the home page (created in Task 11). Modify this component to fetch and display the `heroImage` for each category from Sanity (schema defined in Task 13). The image should be used as the card's background. Increase the vertical height of the cards to better accommodate the images. Implement the following CSS/Tailwind styles: 1. **Default State:** Apply a grayscale filter (`filter: grayscale(100%)`) and a slight dimming effect to the card. The category title should be visible. 2. **Hover State:** On hover, smoothly transition the card to full color (remove grayscale) and apply a 'pop out' effect using `transform: scale(1.05)`. The category description, which is hidden by default, should fade in and become visible on hover. Ensure all transitions are smooth.",
+        "testStrategy": "1. Navigate to the website's home page and locate the talent pool categories section. 2. Verify that each category card is vertically larger than before and displays a background image. 3. Confirm that in their default, non-hovered state, the cards appear grayed out and only the category title is visible. 4. Hover your mouse over a card. 5. Verify the card smoothly transitions to full color. 6. Verify the card animates outwards slightly (the 'pop out' effect). 7. Verify the category description text fades in and becomes readable. 8. Move the mouse off the card and confirm it smoothly returns to its grayed-out default state and the description disappears. 9. Check this functionality across multiple cards to ensure it's dynamic. 10. Use browser developer tools to confirm the new layout is responsive on mobile and tablet screen sizes.",
+        "status": "done",
+        "dependencies": [
+          11,
+          13
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Update GROQ Query to Fetch Category `heroImage`",
+            "description": "Modify the Sanity GROQ query used on the home page to include the `heroImage` field for each talent pool category. This will make the image URL available to the React component for rendering.",
+            "dependencies": [],
+            "details": "Locate the data fetching function responsible for retrieving the list of `talentPoolCategory` documents for the home page. In the GROQ query's projection, add the `heroImage` field with a reference to its asset URL. The updated projection should look something like: `*[_type == \"talentPoolCategory\"]{ title, slug, description, 'heroImage': heroImage.asset->url }`.",
+            "status": "done",
+            "testStrategy": "After implementing the change, log the fetched data to the browser console. Verify that each category object in the resulting array now contains a `heroImage` key with a valid Sanity CDN URL."
+          },
+          {
+            "id": 2,
+            "title": "Update Card Component for Background Image and Increased Size",
+            "description": "Modify the talent pool category card component to use the fetched `heroImage` URL as a background image. Concurrently, increase the card's vertical height to better accommodate the image and the content that will be displayed on hover.",
+            "dependencies": [
+              "15.1"
+            ],
+            "details": "In the React component that renders each category card, apply the fetched `heroImage` URL as an inline style for `backgroundImage`. Use Tailwind CSS classes to set a new, larger height (e.g., `h-80`). Also apply `bg-cover` and `bg-center` to ensure the image fills the card area appropriately. The card container should have `position: relative` to prepare for overlay content.",
+            "status": "done",
+            "testStrategy": "Navigate to the home page. Confirm that each category card is now taller and displays its unique background image. The images should cover the entire card area without distortion."
+          },
+          {
+            "id": 3,
+            "title": "Implement Default Card State Styles (Grayscale & Dimmed)",
+            "description": "Apply the default, non-hovered CSS styles to the category cards. This includes applying a grayscale filter, adding a semi-transparent overlay to dim the image, and ensuring the category description is hidden by default.",
+            "dependencies": [
+              "15.2"
+            ],
+            "details": "On the main card container, add the `grayscale` and `transition-all duration-300 ease-in-out` Tailwind classes. Create a child `div` inside the card to act as an overlay, styling it with `absolute inset-0 bg-black/30`. Ensure the category description element is rendered but hidden using the `opacity-0` class. The category title should remain visible on top of the overlay.",
+            "status": "done",
+            "testStrategy": "Load the home page and observe the category cards. They should all appear in grayscale with a noticeable dimming effect. Only the category title should be visible; the description should be hidden."
+          },
+          {
+            "id": 4,
+            "title": "Implement Card Hover Effects (Color, Scale, Fade-in)",
+            "description": "Implement the interactive hover effects using CSS. On hover, the card should smoothly transition to full color, scale up slightly, and the hidden description should fade into view.",
+            "dependencies": [
+              "15.3"
+            ],
+            "details": "Use Tailwind's `group` and `group-hover:` utilities. Add the `group` class to the main card container. Then, apply the following hover variants: `hover:grayscale-0` and `hover:scale-105` to the card container. For the description element, use `group-hover:opacity-100` to make it fade in. The `transition` classes added in the previous subtask will animate these property changes.",
+            "status": "done",
+            "testStrategy": "Hover your mouse over a category card. Verify that it smoothly animates to full color and grows slightly larger. The category description should fade in clearly. When the mouse is moved off the card, it should smoothly return to its default grayscale state."
+          },
+          {
+            "id": 5,
+            "title": "Responsive Testing and Refinement",
+            "description": "Thoroughly test the newly designed category cards across different screen sizes, including mobile, tablet, and desktop, to ensure the layout, image display, and hover effects are fully responsive and user-friendly.",
+            "dependencies": [
+              "15.4"
+            ],
+            "details": "Use browser developer tools to test the home page at various common breakpoints (e.g., 375px, 768px, 1024px, 1440px). Check for any layout breaks, text overflow, or undesirable image cropping. Adjust styles using responsive prefixes (e.g., `md:h-96`) if necessary. On touch devices, the hover effect will trigger on tap; ensure this behavior does not impede navigation to the category page.",
+            "status": "done",
+            "testStrategy": "1. Verify the card grid layout adapts correctly on mobile (single column) and tablet (two columns). 2. Confirm that text remains readable and does not overflow the card boundaries on any screen size. 3. On a touch device or simulator, tap a card to confirm it navigates to the correct URL and the hover state doesn't create a poor user experience."
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "title": "Finalize Sanity Schemas and Populate Initial Content",
+        "description": "Conduct a comprehensive review and correction of all Sanity schemas (post, event, guide, etc.) to align with frontend requirements, and populate the CMS with initial data for all content types to establish a complete content foundation.",
+        "details": "1. **Schema Review and Validation**: Review existing schemas: `talentPoolCategory`, `event`, `post`, `exhibitionGame`, `guide`, and `page`. Validate all fields against frontend data requirements and GROQ queries. Add missing fields, such as `slug` where needed for routing. 2. **Schema Corrections**: Update the `event` schema by renaming `date` to `eventDate`, `location` to `venue`, and `imageUrl` to `mainImage`. Update the `post` schema by renaming `featuredImage` to `mainImage` and ensuring the `categories` reference field is correctly configured. 3. **Initial Data Population**: Create initial documents in Sanity. For `talentPoolCategory`, create U14, U16, U18, and U20. Create sample `event`, `post`, `exhibitionGame`, and `guide` documents, ensuring they are populated with realistic data. 4. **Data Relationships**: Link the newly created documents. Ensure sample events and posts are correctly referenced to their respective talent pool categories. Verify all reference fields function as expected in the studio.",
+        "testStrategy": "1. **Query Validation**: Execute all existing GROQ queries against the populated Sanity dataset and verify they return the expected data structure with the corrected field names. 2. **Frontend Verification**: Navigate to all pages that consume Sanity data (News, Talent Pool pages, Curriculum, etc.). Confirm that all content displays correctly without errors. Pay special attention to images, dates, and venues on event and post listings. 3. **Relationship Testing**: Verify that navigating from a category page to a linked post or event works correctly. Ensure that filtering content by category on the frontend functions as expected with the populated data.",
+        "status": "done",
+        "dependencies": [
+          2,
+          13
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Review Schemas and Add Missing `slug` Fields",
+            "description": "Systematically review all existing Sanity schemas (`talentPoolCategory`, `event`, `post`, `exhibitionGame`, `guide`, `page`) to ensure they meet frontend data requirements. Add a `slug` field to any schema that will be used for generating unique page routes and doesn't already have one.",
+            "dependencies": [],
+            "details": "For each relevant schema file (e.g., `schemas/post.js`), add a field definition like: `{ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'title', maxLength: 96 }, validation: Rule => Rule.required() }`. Ensure this is implemented for `event`, `post`, `guide`, and `exhibitionGame` schemas to support unique page URLs.",
+            "status": "done",
+            "testStrategy": "After implementation, run the Sanity Studio locally (`sanity start`) and check each specified content type to confirm the 'Slug' field appears and auto-generates from the 'Title' field."
+          },
+          {
+            "id": 2,
+            "title": "Rename Fields in `event` and `post` Schemas for Consistency",
+            "description": "Update the `event` and `post` schemas to rename fields as specified in the requirements. In the `event` schema, rename `date` to `eventDate`, `location` to `venue`, and `imageUrl` to `mainImage`. In the `post` schema, rename `featuredImage` to `mainImage`.",
+            "dependencies": [
+              "16.1"
+            ],
+            "details": "Open the `schemas/event.js` file and change the `name` property of the relevant fields (e.g., change `{ name: 'date', ... }` to `{ name: 'eventDate', ... }`). Repeat for `location` -> `venue` and `imageUrl` -> `mainImage`. Then, in `schemas/post.js`, update the `featuredImage` field definition to `{ name: 'mainImage', ... }`. This will require a data migration script if production data exists, but for initial setup, this change is sufficient.",
+            "status": "done",
+            "testStrategy": "Run the Sanity Studio locally and open the 'Event' and 'Post' forms. Verify that the field labels have been updated to 'Event Date', 'Venue', and 'Main Image' respectively."
+          },
+          {
+            "id": 3,
+            "title": "Validate and Correct Schema Reference Fields",
+            "description": "Review and correct all reference fields across the schemas, with a specific focus on the `categories` field in the `post` schema. Ensure it correctly references the `talentPoolCategory` type and is configured to allow multiple selections.",
+            "dependencies": [
+              "16.2"
+            ],
+            "details": "In `schemas/post.js`, locate the `categories` field (or `talentPoolCategory` field as per Task 13). Ensure its definition allows for multiple references: `{ name: 'categories', title: 'Categories', type: 'array', of: [{ type: 'reference', to: {type: 'talentPoolCategory'} }] }`. Review `event` and `exhibitionGame` schemas and add a similar reference field to `talentPoolCategory` if it's missing.",
+            "status": "done",
+            "testStrategy": "In the local Sanity Studio, open a 'Post' document. Confirm that the 'Categories' field allows you to search for and select multiple 'Talent Pool Category' items."
+          },
+          {
+            "id": 4,
+            "title": "Deploy Updated Schemas and Populate `talentPoolCategory` Documents",
+            "description": "Deploy all the modified Sanity schemas to the hosted Studio environment. After deployment is successful, log into the Studio and create the initial set of `talentPoolCategory` documents: U14, U16, U18, and U20.",
+            "dependencies": [
+              "16.3"
+            ],
+            "details": "Run the `sanity deploy` command from the Sanity project directory to push all local schema changes to the hosted Sanity Studio. Once the deployment is complete, navigate to the Studio URL. Go to the 'Talent Pool Category' content type and create four new documents, setting their titles to 'U14', 'U16', 'U18', and 'U20'.",
+            "status": "done",
+            "testStrategy": "Access the live Sanity Studio URL. Verify that all schema changes (new slugs, renamed fields, corrected references) are reflected. Confirm that the four new 'Talent Pool Category' documents are created and visible."
+          },
+          {
+            "id": 5,
+            "title": "Create Sample Documents for Core Content Types",
+            "description": "Populate the Sanity CMS with at least two sample documents for each of the following types: `post`, `event`, `guide`, and `exhibitionGame`. Use realistic placeholder text and images, ensuring all new and renamed fields are filled out.",
+            "dependencies": [
+              "16.4"
+            ],
+            "details": "In the live Sanity Studio, create new documents for each content type. For posts, write a short article with a title and body. For events, specify a date using `eventDate`, a location in `venue`, and upload an image to `mainImage`. For guides, create content targeted at different roles ('coach', 'staff') to support Task 7. Ensure all documents have a `slug`.",
+            "status": "done",
+            "testStrategy": "Browse the content lists for 'Post', 'Event', 'Guide', and 'Exhibition Game' in the Studio to ensure at least two documents exist for each and appear to be populated correctly."
+          },
+          {
+            "id": 6,
+            "title": "Link Sample Content and Verify Data Relationships",
+            "description": "Edit the sample `post`, `event`, and `exhibitionGame` documents to link them to the appropriate `talentPoolCategory` documents (U14, U16, etc.). Verify that the reference pickers in the Sanity Studio work as expected and that the relationships are saved correctly.",
+            "dependencies": [
+              "16.5"
+            ],
+            "details": "Open a sample `post` document in the Studio. In the `categories` reference field, select one or more of the `talentPoolCategory` documents (e.g., U16, U18). Save the post. Repeat this process for other posts, events, and exhibition games, distributing them across the different categories to ensure varied test data for the frontend.",
+            "status": "done",
+            "testStrategy": "Execute GROQ queries from the Sanity Vision plugin or the frontend application. For example, a query like `*[_type == 'post' && references(*[_type=='talentPoolCategory' && title == 'U16']._id)]` should return only the posts linked to the 'U16' category."
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "title": "Redesign Talent Pool Category Cards with 3D Stacked Layout",
+        "description": "Overhaul the TalentPoolCategories component with a modern 3D stacked card layout, enhanced hover interactions, and improved visual aesthetics to create a more engaging user experience.",
+        "details": "This task involves a complete redesign of the category cards in `/apps/web/components/sections/TalentPoolCategories.tsx`. \n1. **Layout & Sizing**: Modify the card container to remove the existing `gap-6`. Implement a stacked layout where cards overlap. This can be achieved by using absolute positioning for card elements within a relative container or by applying negative margins. Each subsequent card should be visually tucked behind the previous one using a combination of `z-index` and a `top` offset (e.g., `top: index * 30px`). The height of the cards should be significantly increased, approximately doubling the current `h-64 md:h-80`.\n2. **3D Stacked Effect & Hover Interaction**: On hover, the target card should smoothly transition to a higher `z-index`, scale up slightly (e.g., `transform: scale(1.05)`), and move forward to appear above all other cards. Apply a more pronounced `box-shadow` during the hover state to enhance the 'pop-up' effect. All transformations should use CSS transitions for smoothness.\n3. **Content & Styling**: Remove the 'View Details' button and its overlay entirely. The entire card is already wrapped in a Next.js `Link` component, so ensure this core functionality is preserved. The existing behavior where the description text fades in on hover should also be maintained. Enhance the gradient overlay on the images to ensure text remains readable. The grayscale-to-color filter transition on hover should be kept and refined for a better visual effect.\n4. **Responsiveness**: Ensure the stacked layout is responsive. On smaller screens, the overlap effect may need to be reduced or adjusted to maintain usability and prevent content from becoming obscured.",
+        "testStrategy": "1. Navigate to the home page and locate the Talent Pool Categories section. \n2. **Visual Verification**: Confirm that the cards are vertically stacked, overlapping each other, and have no vertical gap between them. Verify the cards are significantly taller than before. Check for a subtle shadow creating a depth effect.\n3. **Hover Interaction**: Hover the mouse over each card in the stack, starting from the one on top. Verify that the hovered card smoothly animates, scales up, and moves to the foreground with a more prominent shadow. Confirm that the description text fades in as expected.\n4. **Functionality**: Confirm the 'View Details' button has been completely removed. Click on each of the category cards and verify that it correctly navigates to the corresponding talent pool page (e.g., clicking 'U14' goes to '/talentpools/u14').\n5. **Responsiveness**: Open browser developer tools and switch to mobile and tablet views (e.g., 375px, 768px). Verify that the stacked card layout adapts gracefully, remains visually appealing, and all cards are still interactive and clickable without UI bugs.",
+        "status": "cancelled",
+        "dependencies": [
+          15,
+          12,
+          16
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Refactor Card Container for Stacking and Increase Card Height",
+            "description": "Prepare the foundational structure for the stacked layout. This involves modifying the parent container in `TalentPoolCategories.tsx` to support absolute positioning for its children and increasing the height of the individual cards to accommodate the new design.",
+            "dependencies": [],
+            "details": "Navigate to `/apps/web/components/sections/TalentPoolCategories.tsx`. Locate the `div` that wraps the mapped category cards. Remove the `gap-6` class and add `relative` to establish a new positioning context. Then, for each card component being rendered, increase its height significantly using Tailwind classes, for example, from `h-64 md:h-80` to `h-[30rem] md:h-[36rem]`. This initial step ensures the container is ready and the cards have the necessary vertical space for the stacking effect.",
+            "status": "cancelled",
+            "testStrategy": "After implementation, view the component on the home page. The cards should now be much taller and will likely overlap at the top-left corner of the container since the gap is removed and no positioning has been applied yet. This confirms the basic structural changes are in place."
+          },
+          {
+            "id": 2,
+            "title": "Implement Static Vertical Stack Layout with Positional Offsets",
+            "description": "Create the static, non-interactive version of the 3D stacked layout. This involves applying absolute positioning to each card and dynamically calculating its `top` offset and `z-index` based on its position in the array.",
+            "dependencies": [
+              "17.1"
+            ],
+            "details": "Inside the `.map()` function that renders the cards, apply `absolute w-full` to each card element. Calculate the vertical offset and stacking order based on the element's `index`. Set the `top` style property dynamically: `style={{ top: `${index * 40}px` }}`. Set the `z-index` in reverse order to ensure the first card appears on top initially: `style={{ zIndex: categories.length - index }}`. Combine these into a single style object.",
+            "status": "cancelled",
+            "testStrategy": "Verify that the cards are rendered in a vertical stack, with each card partially obscured by the one before it. The first card in the list should be fully visible at the top of the stack. The layout should be static and not yet interactive."
+          },
+          {
+            "id": 3,
+            "title": "Develop Hover-Triggered Transformations and Z-Index Shift",
+            "description": "Implement the core hover interaction where a card 'pops out' from the stack. This involves using CSS transforms to scale the card and adjusting its z-index to bring it to the forefront, with smooth transitions.",
+            "dependencies": [
+              "17.2"
+            ],
+            "details": "On the main wrapper of each card, add CSS transition properties: `transition-all duration-300 ease-in-out`. Use Tailwind's `hover:` variants to apply transformations. On hover, the card should scale up (`hover:scale-105`) and its z-index must be increased to appear above all other cards (`hover:z-50`). You may also add a slight vertical translation (`hover:-translate-y-4`) to enhance the effect.",
+            "status": "cancelled",
+            "testStrategy": "Hover over various cards in the stack. The hovered card should smoothly animate, growing in size and moving to the top of the stack, appearing above all other cards. When the mouse leaves, it should smoothly return to its original position."
+          },
+          {
+            "id": 4,
+            "title": "Refine Hover State Visuals: Shadow, Grayscale, and Text",
+            "description": "Enhance the visual feedback of the hover state. This includes adding a more pronounced box shadow, ensuring the existing grayscale-to-color filter transition is preserved, and confirming the description text fades in as intended.",
+            "dependencies": [
+              "17.3"
+            ],
+            "details": "Add a default box-shadow to the card (e.g., `shadow-lg`) and a more pronounced one on hover (`hover:shadow-2xl`). Ensure the card's parent element has the `group` class. Verify that the existing `group-hover:grayscale-0` on the background image and `group-hover:opacity-100` on the description text container still function correctly with the new hover transformations.",
+            "status": "cancelled",
+            "testStrategy": "When hovering over a card, confirm that its shadow becomes deeper, the background image transitions from grayscale to full color, and the description text fades into view. All these effects should occur simultaneously with the transformations from the previous subtask."
+          },
+          {
+            "id": 5,
+            "title": "Remove 'View Details' Button and Finalize Link Behavior",
+            "description": "Streamline the card's content by removing the 'View Details' button and its overlay. Ensure the entire card area remains a single, clickable link that navigates to the correct category page.",
+            "dependencies": [
+              "17.3"
+            ],
+            "details": "In the card's JSX, locate and delete the elements that render the 'View Details' button and the semi-transparent overlay it sits on. Confirm that the Next.js `<Link>` component wraps the entire card structure. Enhance the permanent gradient overlay on the image (e.g., `bg-gradient-to-t from-black/80 to-transparent`) to ensure the title and description text remain readable without the button's overlay.",
+            "status": "cancelled",
+            "testStrategy": "Visually confirm the 'View Details' button and its overlay are gone. Click on different parts of any card (image, title area, etc.). Each click should successfully navigate to the corresponding talent pool category page (e.g., `/talentpools/u16`)."
+          },
+          {
+            "id": 6,
+            "title": "Implement Responsive Design for Smaller Screens",
+            "description": "Adapt the 3D stacked layout for mobile and tablet devices to ensure usability. The vertical overlap will be reduced or removed on smaller screens to prevent content from being inaccessible.",
+            "dependencies": [
+              "17.1",
+              "17.2",
+              "17.3",
+              "17.4",
+              "17.5"
+            ],
+            "details": "Use Tailwind's responsive prefixes to adjust the layout. For mobile (default), revert to a simpler layout. Remove the `absolute` positioning and `top`/`z-index` styles. Instead, use `position: relative` and add a margin (e.g., `mb-4`) to create a simple vertical list. Re-introduce the stacked layout for larger screens using `md:absolute`. The `top` offset should also be responsive: `style={{ top: 0 }}` for mobile and `style={{ top: `${index * 40}px` }}` for `md` and up. This requires conditional styling logic.",
+            "status": "cancelled",
+            "testStrategy": "Load the page on a desktop and resize the browser window to be narrower than the `md` breakpoint (768px). The layout should transition from the 3D stack to a standard, non-overlapping vertical list of cards. Verify that hover effects and clickability are maintained in both layouts."
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "title": "Implement Home Page Recruitment Banner",
+        "description": "Create a new banner section on the public home page designed to attract new players. The banner will use a tertiary color scheme and feature a prominent call-to-action (CTA) to guide prospective members to registration or information pages.",
+        "details": "1. **Sanity Schema Update:** Modify the 'homePage' document schema in Sanity. Add a new field group for the recruitment banner with fields for a headline (string), body text (text), CTA button text (string), and a CTA link (URL or internal reference). 2. **Content Entry:** Populate the new banner fields in the Sanity Studio for the home page document. 3. **Component Development:** Create a new React component, `RecruitmentBanner.js`, in the Next.js application. This component will accept the banner content as props. 4. **Home Page Integration:** Update the main home page component (`/app/page.js`) to fetch the new banner data from Sanity. Pass the fetched data to the `RecruitmentBanner` component. 5. **Styling:** Style the banner using Tailwind CSS, ensuring it adheres to the specified tertiary color palette. The CTA button should have distinct hover and focus states to encourage interaction. The banner must be fully responsive.",
+        "testStrategy": "1. Navigate to the home page and verify the recruitment banner is displayed correctly. 2. Inspect the banner's styling to confirm it uses the project's tertiary color variables. 3. Test the banner's layout on various screen sizes (desktop, tablet, mobile) to ensure it remains visually appealing and functional. 4. Click the call-to-action button and confirm it navigates to the correct destination URL (e.g., the 'Tryout Info' page). 5. Log in to the Sanity Studio, modify the banner's headline and CTA text, publish the changes, and verify the live home page updates immediately or after a rebuild.",
+        "status": "done",
+        "dependencies": [
+          6
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Update Sanity Schema for Recruitment Banner",
+            "description": "Modify the 'homePage' document schema in the Sanity project to include fields for the new recruitment banner. This will enable content editors to manage the banner's content directly from the Sanity Studio.",
+            "dependencies": [],
+            "details": "In the Sanity schema definition for the 'homePage' document type, add a new field of type 'object' named `recruitmentBanner`. Inside this object, define the following fields: `headline` (type: 'string'), `bodyText` (type: 'text'), `ctaButtonText` (type: 'string'), and `ctaLink` (type: 'url'). Group these fields logically within the schema for better organization in the Studio.",
+            "status": "done",
+            "testStrategy": "After deploying the schema changes, open the Sanity Studio and navigate to the Home Page document. Verify that the new 'Recruitment Banner' fields (Headline, Body Text, CTA Button Text, CTA Link) are present and editable."
+          },
+          {
+            "id": 2,
+            "title": "Enter Recruitment Banner Content in Sanity",
+            "description": "Use the Sanity Studio to populate the newly created fields for the recruitment banner on the home page document. This provides the actual content that will be displayed on the website.",
+            "dependencies": [
+              "18.1"
+            ],
+            "details": "Log in to the Sanity Studio. Navigate to the 'Home Page' document. Fill in the `recruitmentBanner` fields with appropriate content: a compelling headline, descriptive body text, a clear call-to-action for the button text (e.g., 'Join Now' or 'Learn More'), and the target URL for the CTA button (e.g., '/sign-up'). Publish the changes.",
+            "status": "done",
+            "testStrategy": "Confirm that the content is saved and published correctly in Sanity. Re-opening the document should show the entered values. Check the API response to ensure the new data is available."
+          },
+          {
+            "id": 3,
+            "title": "Develop the RecruitmentBanner React Component",
+            "description": "Create a new, reusable React component that will render the structure of the recruitment banner. This component will be stateless and receive all its data via props.",
+            "dependencies": [],
+            "details": "In the Next.js project's components directory, create a new file `RecruitmentBanner.js`. Define a functional component that accepts a `bannerData` prop. This prop will be an object containing `headline`, `bodyText`, `ctaButtonText`, and `ctaLink`. The component should render the basic HTML structure: a `section` containing an `h2` for the headline, a `p` for the body text, and a Next.js `<Link>` component for the CTA button. Focus on structure and props, not final styling.",
+            "status": "done",
+            "testStrategy": "Use Storybook or a temporary test page to render the component with mock data. Verify that it correctly displays the headline, text, and that the button has the correct text and `href` attribute."
+          },
+          {
+            "id": 4,
+            "title": "Fetch Sanity Data and Integrate Banner on Home Page",
+            "description": "Update the main home page to fetch the recruitment banner content from Sanity and render the `RecruitmentBanner` component with the fetched data.",
+            "dependencies": [
+              "18.2",
+              "18.3"
+            ],
+            "details": "In the home page file (`/app/page.js`), modify the existing Sanity query to include the `recruitmentBanner` object and its fields. The GROQ query should look something like `*[_type == \"homePage\"][0]{..., recruitmentBanner{headline, bodyText, ctaButtonText, ctaLink}}`. In the page component, receive the data and pass the `recruitmentBanner` object as a prop to the `<RecruitmentBanner />` component. Conditionally render the banner only if the `recruitmentBanner` data exists.\n<info added on 2025-08-01T12:03:32.815Z>\nThe data fetching from Sanity must be performed using server-side rendering (SSR) in Next.js. The GROQ query should be executed on the server, with the resulting data passed down to the component as props. This method ensures the banner content is available on the initial page load, which is crucial for SEO.\n</info added on 2025-08-01T12:03:32.815Z>",
+            "status": "done",
+            "testStrategy": "Load the home page in the development environment. Verify that the data is fetched correctly from Sanity by logging the data or using React DevTools. Confirm that the unstyled `RecruitmentBanner` component renders on the page with the content from Sanity."
+          },
+          {
+            "id": 5,
+            "title": "Apply Responsive Styling to the Recruitment Banner",
+            "description": "Apply Tailwind CSS classes to the `RecruitmentBanner` component to match the design specifications, including the tertiary color scheme, typography, and responsive layouts.",
+            "dependencies": [
+              "18.4"
+            ],
+            "details": "Edit the `RecruitmentBanner.js` component. Use Tailwind CSS utility classes to style the banner section, headline, body text, and CTA button. Implement the project's tertiary color palette for the background and text. Style the CTA button to be prominent, with distinct `:hover` and `:focus` states (e.g., change in background color or a subtle transform). Use responsive prefixes (e.g., `md:`, `lg:`) to ensure the layout adapts correctly to desktop, tablet, and mobile screen sizes.",
+            "status": "done",
+            "testStrategy": "View the home page on different screen sizes using browser developer tools. Verify the banner is fully responsive and the layout doesn't break. Check that the colors match the tertiary color scheme defined in `tailwind.config.js`. Test the CTA button's hover and focus states for visual feedback."
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "title": "Create Coach Recruitment Banner and Content Page",
+        "description": "Develop a new recruitment banner targeting coaches, to be placed on the public home page. This task also includes creating the internal, coach-specific landing page that the banner's call-to-action will link to.",
+        "details": "1. **Sanity Schema Update:** Modify the 'homePage' document schema in Sanity. Add a new field group for the coach recruitment banner with fields for a headline (string), body text (text), CTA button text (string), and a reference to the internal page. This should be modeled after the player recruitment banner schema from Task 18. 2. **Create Internal Page:** Implement a new page at a secure route like `/portal/coaching-resources`. This page must be protected and only accessible to users with the 'coach' role, using the role-based access control established in Task 7. 3. **Page Content:** The new page will display content relevant to coaches. It should fetch `guide` documents from Sanity where `targetRole` is 'coach'. Consider adding a new category field to guides to specifically pull content for 'coaching events', 'degree information', etc. 4. **Banner Component:** Create or adapt the existing `RecruitmentBanner` component to display the new coach-focused content. Ensure it is styled using the project's tertiary color variables. 5. **Integration:** Add the new banner component to the main public-facing layout (e.g., home page), fetching its content from Sanity. The CTA button must link to the new `/portal/coaching-resources` page.",
+        "testStrategy": "1. **Sanity Verification:** After schema deployment, log into the Sanity Studio. Verify the new fields for the coach banner exist on the home page document and populate them. Create at least two `guide` documents tagged for the 'coach' role and assign them to a 'coaching-resources' category. 2. **Public Banner Test:** As an unauthenticated user, view the home page and confirm the coach banner is displayed correctly with the specified text and tertiary colors. 3. **CTA and Auth Flow:** Click the banner's CTA. Verify it redirects to the login page. After logging in as a 'coach', verify you are correctly forwarded to the `/portal/coaching-resources` page. 4. **Authenticated Access:** Log in as a 'coach' and navigate to the `/portal/coaching-resources` page. Confirm the correct guides are displayed. 5. **Role Gating:** Log in as a user with a non-coach role (e.g., 'staff') and attempt to access `/portal/coaching-resources` directly. Verify access is denied or the user is redirected.",
+        "status": "done",
+        "dependencies": [
+          18,
+          7
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Update Sanity Schemas for Coach Banner and Guide Categorization",
+            "description": "Modify the Sanity schemas to support the new coach recruitment banner content on the home page and to allow for better categorization of `guide` documents for the new landing page.",
+            "dependencies": [],
+            "details": "In the Sanity project, locate the 'homePage' document schema. Add a new field group named `coachRecruitmentBanner`. Within this group, add the following fields: `headline` (string), `bodyText` (text), and `ctaText` (string). Next, modify the 'guide' document schema to include a new `category` field (string) with a predefined list of options, including 'coaching-resources', 'coaching-events', and 'degree-information'. Deploy these schema changes to the Sanity Studio.",
+            "status": "done",
+            "testStrategy": "After deployment, log into the Sanity Studio. Open the 'homePage' document and verify the new 'Coach Recruitment Banner' field group and its sub-fields are present and editable. Then, create or edit a 'guide' document and confirm the new 'category' dropdown field is available and functional."
+          },
+          {
+            "id": 2,
+            "title": "Create Secure Route and Page for Coaching Resources",
+            "description": "Implement the new page at the `/portal/coaching-resources` route and secure it so that it is only accessible to authenticated users who have the 'coach' role.",
+            "dependencies": [],
+            "details": "Create a new Next.js page file at `app/(portal)/coaching-resources/page.tsx`. This route falls under the `(portal)` group which should already be protected by Clerk middleware (from Task 4). Inside the page component, implement a server-side check to get the current user's role from Supabase (as established in Task 7). If the user's role is not 'coach', either redirect them to the portal dashboard or render an 'Access Denied' component. For now, the page can contain a simple placeholder message like 'Coaching Resources Page'.",
+            "status": "done",
+            "testStrategy": "Log in as a user with the 'coach' role and navigate to `/portal/coaching-resources`; verify the page loads. Log in as a user with a different role (e.g., 'staff') and confirm you are redirected or see an access denied message. Attempt to access the URL while logged out and confirm you are redirected to the sign-in page."
+          },
+          {
+            "id": 3,
+            "title": "Fetch and Display Coach-Specific Guides on Resources Page",
+            "description": "Enhance the `/portal/coaching-resources` page to fetch and display all `guide` documents from Sanity that are specifically targeted at coaches.",
+            "dependencies": [
+              "19.1",
+              "19.2"
+            ],
+            "details": "On the `coaching-resources` page component, implement a Sanity client query to fetch content. Use a GROQ query to select all documents of type `guide` where the `targetRole` field is equal to 'coach'. Map over the returned array of guides and render them as a list or a grid of cards. Each card should display at least the guide's `title` and `summary`, and link to the full guide page.",
+            "status": "done",
+            "testStrategy": "In Sanity, create at least three `guide` documents. Set `targetRole` to 'coach' for two of them and 'staff' for the third. Log in as a coach, navigate to the resources page, and verify that only the two coach-specific guides are displayed. Check that the links on the cards are correct."
+          },
+          {
+            "id": 4,
+            "title": "Adapt RecruitmentBanner Component for Coach Content",
+            "description": "Adapt the existing `RecruitmentBanner` component (from Task 18) or create a new one to display the coach-focused content, ensuring it is styled with the project's tertiary color scheme.",
+            "dependencies": [],
+            "details": "Locate the existing `RecruitmentBanner` component. Ensure it is flexible enough to accept `headline`, `bodyText`, `ctaText`, and `ctaLink` as props. Add a new style variant or prop (e.g., `variant='coach'`) that applies the project's defined tertiary color variables for the background or accent colors. This will visually distinguish it from the primary player recruitment banner.",
+            "status": "done",
+            "testStrategy": "Use Storybook or a temporary test page to render the banner component. Pass it mock data for the coach variant and verify it displays all text content correctly. Confirm that the component's styling correctly applies the tertiary colors and is distinct from other banner variants."
+          },
+          {
+            "id": 5,
+            "title": "Integrate Coach Banner on Home Page with Sanity Data",
+            "description": "Add the newly styled coach recruitment banner to the public home page, fetching its content dynamically from Sanity and linking its CTA button to the new resources page.",
+            "dependencies": [
+              "19.1",
+              "19.2",
+              "19.4"
+            ],
+            "details": "In the main public home page component (e.g., `app/page.tsx`), update the Sanity query to also fetch the `coachRecruitmentBanner` field group from the `homePage` document. Import the `RecruitmentBanner` component from subtask 19.4. Render the component on the page, passing the fetched Sanity data (`headline`, `bodyText`, `ctaText`) as props. Hardcode the `ctaLink` prop to `/portal/coaching-resources`.",
+            "status": "done",
+            "testStrategy": "In the Sanity Studio, populate the coach banner fields on the `homePage` document and publish the changes. Load the application's public home page and verify the coach banner appears with the correct content. Click the CTA button and confirm it navigates to `/portal/coaching-resources` (which should then prompt for login if the user is not an authenticated coach)."
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "title": "Implement Role-Based Coach Dashboard",
+        "description": "Create a centralized dashboard for authenticated users with the 'coach' role. This dashboard will serve as the main landing page within the secure portal for coaches, displaying private content such as guides, rule changes, and other non-public resources.",
+        "details": "Implement a new page at the route `/portal/dashboard`. This page will become the primary landing area for users with the 'coach' role after they log in. The component should leverage the role-based access control established in Task 7, fetching the user's role from Supabase. The dashboard layout should use a grid system to display multiple content widgets, such as 'Latest Announcements', 'Featured Guides', and 'Upcoming Rule Changes'. To support this, a new schema for `announcement` should be created in Sanity with fields for a title, date, and body content, and it must include a `targetRole` field. The dashboard page will perform multiple GROQ queries to fetch `guide` and `announcement` documents from Sanity where `targetRole` is 'coach'.",
+        "testStrategy": "1. Log in as a user with the 'coach' role and verify you are automatically redirected to and can access `/portal/dashboard`. 2. Log in as a user with a different role (e.g., 'staff') and confirm you cannot access the coach dashboard. 3. As an unauthenticated user, attempt to navigate to `/portal/dashboard` and verify you are redirected to the login page. 4. In Sanity, create several `guide` and `announcement` documents and tag them for the 'coach' role. 5. Verify that this content is correctly displayed in the appropriate widgets on the dashboard. 6. Confirm that content tagged for other roles does not appear.",
+        "status": "done",
+        "dependencies": [
+          5,
+          7,
+          19
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create 'announcement' Schema in Sanity Studio",
+            "description": "Define and implement a new document schema named `announcement` in the Sanity Studio codebase. This schema is essential for creating coach-specific announcements that will be displayed on the new dashboard.",
+            "dependencies": [],
+            "details": "In the Sanity Studio project, create a new schema file (e.g., `schemas/announcement.js`). Define the schema with a `name` of 'announcement' and a `title` of 'Announcement'. It must include the following fields: `title` (type: string), `date` (type: date), `body` (type: blockContent), and `targetRole` (type: string). For the `targetRole` field, use a predefined list of options (e.g., ['coach', 'staff']) to ensure data consistency. Register the new schema in your Sanity configuration so it appears in the Studio.",
+            "status": "done",
+            "testStrategy": "Deploy the Sanity Studio changes. Open the Studio and verify that 'Announcement' appears as a new content type. Create a new announcement, fill in all fields, set the target role to 'coach', and publish it to confirm the schema works correctly."
+          },
+          {
+            "id": 2,
+            "title": "Scaffold the Coach Dashboard Page and Route",
+            "description": "Create the basic file structure and routing for the new coach dashboard page. This involves creating a new page component at the designated route and ensuring it is protected by the general authentication middleware.",
+            "dependencies": [],
+            "details": "In the Next.js application, create a new route at `/portal/dashboard/page.tsx`. Implement a basic React server component named `CoachDashboardPage` that returns a placeholder heading like \"Coach Dashboard\". Ensure this route is covered by the existing Clerk middleware for protected routes, so that only authenticated users can access it. At this stage, do not implement role-specific logic or data fetching.",
+            "status": "done",
+            "testStrategy": "After implementing, run the application. As an unauthenticated user, try to navigate to `/portal/dashboard` and verify you are redirected to the sign-in page. Log in as any authenticated user and verify you can access the page and see the placeholder heading."
+          },
+          {
+            "id": 3,
+            "title": "Implement Coach Role-Specific Access Guard",
+            "description": "Enhance the coach dashboard page to restrict access exclusively to users with the 'coach' role. Users with other roles or without a defined role should be redirected away.",
+            "dependencies": [
+              "20.2"
+            ],
+            "details": "In the `CoachDashboardPage` component (`/portal/dashboard/page.tsx`), implement a server-side check to fetch the current user's role from the Supabase `users` table. This logic should leverage the existing pattern from Task 7 to query Supabase using the authenticated user's ID from Clerk. If the user's role is not 'coach', use the `redirect` function from `next/navigation` to send them to a default authenticated page (e.g., `/portal`). If the role is 'coach', allow the page content to render.",
+            "status": "done",
+            "testStrategy": "1. Log in as a user with the 'coach' role and confirm you can access `/portal/dashboard`. 2. Log in as an authenticated user with a different role (e.g., 'staff' or a regular user) and verify you are redirected away from `/portal/dashboard` to the specified default page."
+          },
+          {
+            "id": 4,
+            "title": "Fetch Coach-Specific Content from Sanity",
+            "description": "Implement the data-fetching logic within the `CoachDashboardPage` component to query Sanity for content targeted specifically at coaches.",
+            "dependencies": [
+              "20.1",
+              "20.3"
+            ],
+            "details": "In the `CoachDashboardPage` server component, write and execute two separate asynchronous GROQ queries using the Sanity client. The first query will fetch the latest `announcement` documents where `targetRole == 'coach'`, ordered by date descending. The second query will fetch `guide` documents where `targetRole == 'coach'`. Pass the fetched data as props from the page component to the client components that will render them.",
+            "status": "done",
+            "testStrategy": "Before implementation, create at least two announcements and two guides in Sanity, setting `targetRole` to 'coach' for one of each and a different role for the others. In the `CoachDashboardPage` component, `console.log` the fetched data on the server side. Verify that only the documents with `targetRole == 'coach'` are returned from the queries."
+          },
+          {
+            "id": 5,
+            "title": "Implement Dashboard UI with Grid and Content Widgets",
+            "description": "Build the user interface for the coach dashboard, organizing the fetched content into a clear grid layout with distinct widgets for announcements and guides.",
+            "dependencies": [
+              "20.4"
+            ],
+            "details": "Using the data fetched in the previous subtask, implement the UI for the `CoachDashboardPage`. Use a CSS grid or a component library's grid system (e.g., Tailwind CSS grid classes) to structure the layout. Create separate client components for the content widgets, such as `AnnouncementsWidget.tsx` and `GuidesWidget.tsx`. These components will receive the fetched data as props. The `AnnouncementsWidget` should display a list of announcement titles and dates. The `GuidesWidget` should display a list of featured guide titles. Style these components to be clean, readable, and consistent with the portal's existing design.",
+            "status": "done",
+            "testStrategy": "Log in as a coach. Verify the dashboard page displays a grid layout. Confirm the 'Latest Announcements' and 'Featured Guides' widgets are present and correctly populated with the data fetched from Sanity. Check the layout's responsiveness on different screen sizes (desktop, tablet, mobile)."
           }
         ]
       }
     ],
     "metadata": {
       "created": "2025-07-31T12:32:38.979Z",
-      "updated": "2025-07-31T12:44:28.004Z",
+      "updated": "2025-09-13T09:10:43.425Z",
       "description": "Tasks for master context"
     }
   }

@@ -1,12 +1,28 @@
-import { Button } from "@workspace/ui/components/button"
+import type { JSX } from "react";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { FundamentalCategories } from "@/components/sections/FundamentalCategories";
+import { NewsSection } from "@/components/sections/NewsSection";
+import { ExhibitionGamesSection } from "@/components/sections/ExhibitionGamesSection";
+import {
+  getAllPosts,
+  getAllExhibitionGames,
+  getAllFundamentalCategories,
+} from "@/lib/sanityClient";
 
-export default function Page() {
+export default async function Page(): Promise<JSX.Element> {
+  const posts = await getAllPosts();
+  const games = await getAllExhibitionGames();
+  const fundamentalCategories = await getAllFundamentalCategories();
+  const featuredPost = posts[0];
+
   return (
-    <div className="flex items-center justify-center min-h-svh">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold">Hello World</h1>
-        <Button size="sm">Button</Button>
-      </div>
-    </div>
-  )
+    <main>
+      <HeroSection
+        featuredPost={featuredPost}
+      />
+      <NewsSection posts={posts} />
+      <ExhibitionGamesSection games={games} />
+      <FundamentalCategories categories={fundamentalCategories} />
+    </main>
+  );
 }

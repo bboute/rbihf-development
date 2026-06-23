@@ -1,0 +1,11 @@
+schema: spec-driven
+change: restructure-academy-coach-learning
+status: proposed
+createdAt: 2026-05-04
+apply:
+  requires:
+    - tasks
+artifacts:
+  proposal: done
+  design: done
+  tasks: done

@@ -1,7 +1,10 @@
+import type { JSX, ReactNode } from "react"
 import { Geist, Geist_Mono } from "next/font/google"
 
 import "@workspace/ui/globals.css"
 import { Providers } from "@/components/providers"
+import { Footer } from "@/components/layout/Footer"
+import { ConditionalHeader } from "@/components/layout/ConditionalHeader"
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -16,14 +19,18 @@ const fontMono = Geist_Mono({
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
-}>) {
+  children: ReactNode
+}>): JSX.Element {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <ConditionalHeader />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

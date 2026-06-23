@@ -1,6 +1,6 @@
-# shadcn/ui monorepo template
+# Belgian Ice Hockey Talent Pool Platform (BTPP)
 
-This template is for creating a monorepo with shadcn/ui.
+A comprehensive platform for ice hockey development in Belgium, designed to connect players, coaches, and clubs while providing resources for talent identification and development.
 
 ## Usage
 
@@ -27,5 +27,5 @@ Your `tailwind.config.ts` and `globals.css` are already set up to use the compon
 To use the components in your app, import them from the `ui` package.
 
 ```tsx
-import { Button } from "@workspace/ui/components/button"
+import { Button } from "@workspace/ui/components/button";
 ```
