@@ -1,4 +1,5 @@
 import type { ReactNode } from "react"
+import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 
 import "@workspace/ui/globals.css"
@@ -16,11 +17,16 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
-interface RootLayoutProps {
-  children: ReactNode
+export const metadata: Metadata = {
+  title: "RBIHF Development Hub",
+  description: "Belgian Ice Hockey Development Platform",
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
