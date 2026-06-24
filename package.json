@@ -10,6 +10,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.15.12",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "husky": "^9.1.7",
