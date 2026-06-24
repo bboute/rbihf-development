@@ -60,20 +60,20 @@ export function HeaderMenu(): JSX.Element {
 
       <div
         className={[
-          "fixed inset-0 z-[60] transition-opacity duration-300",
+          "fixed inset-0 z-[100] transition-opacity duration-300",
           isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
         ].join(" ")}
       >
         <div
           onClick={() => setIsOpen(false)}
-          className="absolute inset-0 bg-foreground/35"
+          className="absolute inset-0 bg-black/50"
         />
 
         <aside
           id="header-menu-panel"
           aria-hidden={!isOpen}
           className={[
-            "absolute right-0 top-0 flex h-full w-full max-w-sm flex-col border-l border-primary/15 bg-background shadow-2xl transition-transform duration-300 ease-out",
+            "fixed right-0 top-0 z-[70] flex h-full w-full max-w-sm flex-col border-l border-primary/15 bg-background shadow-2xl transition-transform duration-300 ease-out",
             isOpen ? "translate-x-0" : "translate-x-full",
           ].join(" ")}
         >
