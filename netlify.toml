@@ -5,14 +5,11 @@
   publish = "apps/web/.next"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
   PNPM_VERSION = "10.4.1"
   SECRETS_SCAN_ENABLED = "true"
   SECRETS_SCAN_OMIT_PATHS = ".netlify/**,apps/sanity/.netlify/**,apps/web/.next/**,node_modules/**,.turbo/**,dist/**,build/**"
   SECRETS_SCAN_OMIT_KEYS = "SANITY_DATASET,SANITY_API_VERSION,SANITY_PROJECT_ID,NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
 
 [context.production.environment]
   NODE_ENV = "production"
