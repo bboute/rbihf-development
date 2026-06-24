@@ -3,7 +3,7 @@
 import type { JSX } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { SignedIn, UserButton } from "@clerk/nextjs"
+import { useUser, UserButton } from "@clerk/nextjs"
 import { HeaderMenu } from "@/components/HeaderMenu"
 
 const primaryLinks = [
@@ -16,6 +16,8 @@ const primaryLinks = [
 ]
 
 export function Header(): JSX.Element {
+  const { isSignedIn } = useUser()
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-primary/10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/85">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -55,11 +57,11 @@ export function Header(): JSX.Element {
             <HeaderMenu />
           </div>
 
-          <SignedIn>
+          {isSignedIn && (
             <div className="flex items-center">
               <UserButton />
             </div>
-          </SignedIn>
+          )}
         </div>
       </div>
     </header>
