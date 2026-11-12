@@ -7,6 +7,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@keyframes scrollhint {
+  0% {
+    top: 20%;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    top: 70%;
+    opacity: 0;
+  }
+}
+
 :root {
   --background: #F5F2EB;
   --foreground: #111111;
@@ -83,6 +97,10 @@
 }
 
 @theme inline {
+  --container-7xl: 90rem;
+  --container-page: 90rem;
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -123,7 +141,33 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@layer utilities {
+  .container {
+    width: 100%;
+    max-width: var(--container-page);
+  }
+
+  .section-rhythm {
+    padding-block: 12px;
+  }
+
+  @media (min-width: 40rem) {
+    .section-rhythm {
+      padding-block: 16px;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .section-rhythm {
+      padding-block: 80px;
+    }
+  }
+}
+
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -131,7 +175,7 @@
     @apply bg-background text-foreground font-sans;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight;
+    @apply font-heading font-bold tracking-tight;
   }
   h1 {
     @apply text-4xl md:text-5xl;

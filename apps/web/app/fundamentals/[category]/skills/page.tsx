@@ -473,7 +473,7 @@ export default function SkillsPage({ params }: SkillsPageProps): JSX.Element {
       </div>
 
       {/* Skills Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 pt-3 pb-3 sm:px-6 sm:pt-4 sm:pb-4 lg:px-8 lg:pt-20 lg:pb-20">
         <div className="space-y-16">
           {/* Essential Skills Grid */}
           <section>

@@ -57,7 +57,7 @@ export default async function FundamentalPage({
         videoUrl={categoryData.videoUrl}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 pt-3 pb-3 sm:px-6 sm:pt-4 sm:pb-4 lg:px-8 lg:pt-20 lg:pb-20">
         {/* Back to Fundamentals Overview */}
         <div className="mb-12">
           <Button
@@ -74,9 +74,9 @@ export default async function FundamentalPage({
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3 lg:gap-12">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-12">
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8 lg:space-y-12">
             {/* Program Overview */}
             <section className="bg-muted/20 rounded-xl p-8 border border-primary/10">
               <div className="flex items-center justify-between mb-6">

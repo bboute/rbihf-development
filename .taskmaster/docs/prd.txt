@@ -1,12 +1,12 @@
   
 
-# Product Requirements Document: Belgian Hockey Development Hub
+# Product Requirements Document: RBIHF Development Centre of Excellence
 
 ## **Overview**
 
 The Belgian Talent Pool Program aims to elevate the standard of ice hockey across Belgium to improve the performance of our U18 and U20 national teams in IIHF tournaments. Currently, there is a disconnect between the standards of the national program and the development happening within local clubs. Players and coaches arriving at talent pool events are often unprepared for the high-performance environment.
 
-This project solves this problem by creating a centralized digital platform: **The Belgian Hockey Development Hub**.
+This project solves this problem by creating a centralized digital platform: **RBIHF Development Centre of Excellence (RDCE)**.
 
 This platform will be the single source of truth for modern ice hockey development in Belgium. It is for **club coaches**, **club staff**, **players**, and **parents** involved in the Belgian hockey ecosystem. Its value lies in standardizing coaching methodologies, providing age-appropriate development curricula, disseminating best practices for player and club development, and creating a unified, educated hockey community, ultimately leading to more successful national teams.
 

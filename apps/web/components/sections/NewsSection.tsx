@@ -22,10 +22,9 @@ interface NewsSectionProps {
   posts: Post[];
 }
 
-// Consistent date formatting that works on both server and client
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
+  return date.toLocaleDateString("en-BE", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -34,244 +33,199 @@ function formatDate(dateString: string): string {
 }
 
 export function NewsSection({ posts }: NewsSectionProps): JSX.Element {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
-  // Extract featured post (first in array)
-  const featuredPost = posts[0];
-  const remainingPosts = posts.slice(1);
-
-  // Extract unique categories from posts
-  const categories = Array.from(
-    new Set(
-      posts.flatMap(
-        (post: Post) =>
-          post.categories?.map((cat: { title: string }) => cat.title) || [],
+  const categories = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          posts.flatMap(
+            (post) => post.categories?.map((category) => category.title) ?? [],
+          ),
+        ),
       ),
-    ),
-  ) as string[];
+    [posts],
+  );
 
-  const filteredPosts = useMemo(() => {
-    if (selectedCategory === "all") {
-      return remainingPosts;
-    }
-    return remainingPosts.filter((post: Post) =>
-      post.categories?.some(
-        (cat: { title: string }) => cat.title === selectedCategory,
-      ),
-    );
-  }, [selectedCategory, remainingPosts]);
+  const visiblePosts = useMemo(
+    () =>
+      selectedCategory === "all"
+        ? posts
+        : posts.filter((post) =>
+            post.categories?.some(
+              (category) => category.title === selectedCategory,
+            ),
+          ),
+    [posts, selectedCategory],
+  );
 
-  // No posts case
-  if (posts.length === 0) {
-    return (
-      <section className="relative overflow-hidden py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <h2 className="text-4xl font-bold mb-4">Latest News</h2>
-            <p className="text-muted-foreground">
-              No news articles available yet.
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const featuredPost = visiblePosts[0];
+  const recentPosts = visiblePosts.slice(1, 4);
+  const remainingPosts = visiblePosts.slice(4);
 
   return (
-    <section
-      id="news"
-      className="relative overflow-hidden border-b border-primary/10 bg-[radial-gradient(circle_at_top_left,_rgba(200,43,58,0.08),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(242,194,48,0.12),_transparent_28%),linear-gradient(180deg,_rgba(245,242,235,1)_0%,_rgba(255,251,245,1)_100%)] py-20"
-    >
-      {/* Subtle brush-stroke texture overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      <div className="relative z-10 container mx-auto px-4">
-        {/* Section Header */}
-        <div className="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+    <section id="news" className="section-rhythm bg-card">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div>
-            <h2 className="text-4xl font-bold tracking-tight text-foreground">
-              Latest News
-            </h2>
-            <p className="mt-2 text-lg text-muted-foreground">
-              Stay updated with announcements from RBIHF Development Hub.
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-secondary">
+              News &amp; updates
             </p>
+            <h2 className="mt-3 font-heading text-4xl font-bold text-foreground sm:text-5xl">
+              Framework updates, without the noise.
+            </h2>
           </div>
-          <Link
-            href="/news"
-            className="inline-flex items-center rounded-full border border-foreground/15 bg-background px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
-          >
-            View All
-          </Link>
+          <div className="flex flex-wrap items-center justify-between gap-4 lg:justify-end">
+            <p className="max-w-md text-lg leading-8 text-muted-foreground">
+              Official development guidance and practical announcements,
+              organised by pillar.
+            </p>
+            <Link
+              href="/news"
+              className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-secondary"
+            >
+              View all updates <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
 
-        {/* Category Filter - Horizontal scroll on mobile */}
-        <div className="mb-10 -mx-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:overflow-visible sm:px-0 sm:pb-0">
-          <div className="flex gap-2 sm:flex-wrap">
-            <button
-              onClick={() => setSelectedCategory("all")}
-              className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-all ${
-                selectedCategory === "all"
-                  ? "bg-primary text-primary-foreground"
-                  : "border border-primary/20 bg-background text-foreground hover:bg-primary/10"
+        <div className="mt-8 -mx-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:overflow-visible sm:px-0 sm:pb-0">
+          <div
+            aria-label="Filter news by category"
+            role="group"
+            className="flex w-fit gap-1 rounded-md border border-border bg-muted/40 p-1"
+          >
+            {["all", ...categories].map((category) => {
+              const isSelected = selectedCategory === category;
+
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  aria-pressed={isSelected}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`shrink-0 rounded px-4 py-2 text-sm font-bold transition-colors ${
+                    isSelected
+                      ? "bg-foreground text-background shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {category === "all" ? "All updates" : category}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {featuredPost ? (
+          <>
+            <div
+              className={`mt-8 grid gap-8 ${
+                recentPosts.length > 0 ? "lg:grid-cols-[1.2fr_0.8fr]" : ""
               }`}
             >
-              All News
-            </button>
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-all ${
-                  selectedCategory === category
-                    ? "bg-primary text-primary-foreground"
-                    : "border border-primary/20 bg-background text-foreground hover:bg-primary/10"
-                }`}
+              <Link
+                href={`/news/${featuredPost.slug.current}`}
+                className="group relative flex min-h-[22rem] overflow-hidden rounded-md bg-[#152E35] text-white"
               >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Featured Post - Dark Card */}
-        {featuredPost && selectedCategory === "all" && (
-          <article className="mb-12">
-            <Link
-              href={`/news/${featuredPost.slug.current}`}
-              className="group relative block overflow-hidden rounded-[2rem] bg-[#111111] text-white shadow-[0_25px_80px_rgba(17,17,17,0.18)]"
-            >
-              {/* Gradient overlay with Belgian colors */}
-              <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_38%,rgba(200,43,58,0.18),rgba(242,194,48,0.12))]" />
-
-              {/* Image */}
-              {featuredPost.imageUrl && (
-                <div className="relative aspect-video overflow-hidden">
+                {featuredPost.imageUrl && (
                   <Image
                     src={featuredPost.imageUrl}
                     alt={featuredPost.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-[#111111]/50 to-transparent" />
-                </div>
-              )}
-
-              {/* Content */}
-              <div className="relative p-6 sm:p-8">
-                {/* Category Badge */}
-                {featuredPost.categories?.[0] && (
-                  <span className="mb-4 inline-block rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/90">
-                    {featuredPost.categories[0].title}
-                  </span>
                 )}
-
-                <h3 className="mb-3 text-2xl font-bold leading-tight sm:text-3xl">
-                  {featuredPost.title}
-                </h3>
-
-                <p className="mb-5 max-w-2xl text-base leading-relaxed text-white/80">
-                  {featuredPost.excerpt}
-                </p>
-
-                <div className="flex flex-wrap items-center gap-4">
-                  <time className="text-sm text-white/60">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
+                <div className="relative mt-auto p-6 sm:p-8">
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/65">
+                    {featuredPost.categories?.[0]?.title ?? "Update"} ·{" "}
                     {formatDate(featuredPost.publishedAt)}
-                  </time>
-
-                  <span className="inline-flex items-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-foreground transition-colors group-hover:bg-white/90">
-                    Read Article
+                  </p>
+                  <h3 className="mt-3 max-w-2xl font-heading text-3xl font-bold leading-tight">
+                    {featuredPost.title}
+                  </h3>
+                  <p className="mt-3 max-w-xl text-sm leading-6 text-white/75">
+                    {featuredPost.excerpt}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold">
+                    Read the update
+                    <span
+                      aria-hidden="true"
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
                   </span>
                 </div>
-              </div>
+              </Link>
 
-              {/* Placeholder if no image */}
-              {!featuredPost.imageUrl && (
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20" />
+              {recentPosts.length > 0 && (
+                <div className="divide-y divide-border border-y border-border">
+                  {recentPosts.map((post) => (
+                    <Link
+                      key={post._id}
+                      href={`/news/${post.slug.current}`}
+                      className="group block py-5 first:pt-5"
+                    >
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">
+                        {post.categories?.[0]?.title ?? "Update"} ·{" "}
+                        {formatDate(post.publishedAt)}
+                      </p>
+                      <h3 className="mt-2 text-xl font-bold leading-snug text-foreground transition-colors group-hover:text-primary">
+                        {post.title}
+                      </h3>
+                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                        {post.excerpt}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
               )}
-            </Link>
-          </article>
-        )}
+            </div>
 
-        {/* Regular Posts Grid */}
-        {filteredPosts.length > 0 && (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredPosts.map((post) => (
-              <article
-                key={post._id}
-                className="group overflow-hidden rounded-3xl border border-primary/10 bg-white/75 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-secondary/20 hover:shadow-lg"
-              >
-                <Link
-                  href={`/news/${post.slug.current}`}
-                  className="block"
-                >
-                  {/* Image */}
-                  {post.imageUrl && (
-                    <div className="relative aspect-video overflow-hidden">
-                      <Image
-                        src={post.imageUrl}
-                        alt={post.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-
-                  {/* Content */}
-                  <div className="p-5">
-                    {/* Category Badge */}
-                    {post.categories?.[0] && (
-                      <span className="mb-3 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                        {post.categories[0].title}
-                      </span>
-                    )}
-
-                    <h3 className="mb-2 line-clamp-2 text-lg font-semibold leading-tight text-foreground group-hover:text-secondary">
+            {remainingPosts.length > 0 && (
+              <div className="mt-8 grid border-t border-border md:grid-cols-2 md:divide-x md:divide-border">
+                {remainingPosts.map((post) => (
+                  <Link
+                    key={post._id}
+                    href={`/news/${post.slug.current}`}
+                    className="group border-b border-border px-4 py-6 transition-colors hover:bg-muted/40 md:px-7"
+                  >
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">
+                      {post.categories?.[0]?.title ?? "Update"} ·{" "}
+                      {formatDate(post.publishedAt)}
+                    </p>
+                    <h3 className="mt-2 text-lg font-bold leading-snug text-foreground transition-colors group-hover:text-primary">
                       {post.title}
                     </h3>
-
-                    <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">
+                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
                       {post.excerpt}
                     </p>
-
-                    <time className="text-xs text-muted-foreground">
-                      {formatDate(post.publishedAt)}
-                    </time>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </div>
-        )}
-
-        {/* No results */}
-        {filteredPosts.length === 0 && selectedCategory !== "all" && (
-          <div className="rounded-2xl border border-primary/10 bg-white/50 py-16 text-center">
-            <p className="text-muted-foreground">
-              No news articles found for the selected category.
+                  </Link>
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="mt-8 border-y border-border py-12 text-center">
+            <p className="font-bold text-foreground">
+              {posts.length === 0
+                ? "No updates available yet."
+                : "No updates in this category."}
             </p>
-            <button
-              onClick={() => setSelectedCategory("all")}
-              className="mt-4 text-sm font-medium text-primary hover:underline"
-            >
-              Show all news
-            </button>
+            {selectedCategory !== "all" && (
+              <button
+                type="button"
+                onClick={() => setSelectedCategory("all")}
+                className="mt-3 text-sm font-bold text-primary hover:text-secondary"
+              >
+                Show all updates
+              </button>
+            )}
           </div>
         )}
-
-        {/* View All Link */}
-        <div className="mt-12 text-center">
-          <Link
-            href="/news"
-            className="inline-flex items-center rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90"
-          >
-            View All News
-          </Link>
-        </div>
       </div>
     </section>
   );

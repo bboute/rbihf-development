@@ -1,69 +1,106 @@
-import Image from "next/image";
+import Image from "next/image"
+import Link from "next/link"
+import { ArrowLeft, CalendarDays } from "lucide-react"
 
 interface CategoryHeroProps {
-  title: string;
-  description: string;
-  imageUrl?: string;
-  videoUrl?: string;
+  title: string
+  description: string
+  imageUrl?: string
+  imagePosition?: string
+  imageAlt?: string
+  videoUrl?: string
+  eyebrow?: string
+  backHref?: string
+  backLabel?: string
+  primaryCta?: { href: string; label: string }
+  cmsOnly?: boolean
 }
 
 export function CategoryHero({
   title,
   description,
   imageUrl,
+  imagePosition,
+  imageAlt,
   videoUrl,
+  eyebrow,
+  backHref,
+  backLabel = "Back to overview",
+  primaryCta,
+  cmsOnly = false,
 }: CategoryHeroProps) {
+  if (cmsOnly && !(title || description || eyebrow || imageUrl || videoUrl)) {
+    return null
+  }
+  const heroImage = imageUrl ?? (cmsOnly ? undefined : "/image.png")
+  const heroEyebrow = eyebrow ?? (cmsOnly ? undefined : "Development pathway")
   return (
-    <section className="relative min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-primary via-tertiary to-primary/80 text-white overflow-hidden">
-      {/* Background video */}
+    <section className="relative flex min-h-[70svh] items-end overflow-hidden bg-[#102D35] text-white">
       {videoUrl && (
-        <div className="absolute inset-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src={videoUrl} type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-primary/60"></div>
-        </div>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src={videoUrl} type="video/mp4" />
+        </video>
       )}
 
-      {/* Fallback background image if no video */}
-      {!videoUrl && imageUrl && (
-        <div className="absolute inset-0">
-          <Image
-            src={imageUrl}
-            alt={title}
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-primary/50"></div>
-        </div>
+      {!videoUrl && heroImage && (
+        <Image
+          src={heroImage}
+          alt={imageAlt ?? (cmsOnly ? "" : title)}
+          fill
+          sizes="100vw"
+          style={{ objectPosition: imagePosition }}
+          className="object-cover object-center"
+          priority
+        />
       )}
 
-      {/* Ice hockey pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC40Ij48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxNSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIzIi8+PC9nPjwvZz48L3N2Zz4=')]"></div>
-      </div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/20" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="space-y-6">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight drop-shadow-lg">
-            {title}
-          </h1>
-
-          <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
-            {description}
-          </p>
+      <div className="relative mx-auto w-full max-w-7xl px-4 pb-3 pt-32 sm:px-6 sm:pb-4 lg:px-8 lg:pb-20">
+        <div className="max-w-3xl">
+          {backHref && backLabel && (
+            <Link
+              href={backHref}
+              className="mb-8 inline-flex items-center gap-2 text-sm font-bold text-white/70 hover:text-white"
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              {backLabel}
+            </Link>
+          )}
+          {heroEyebrow && (
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-white/70">
+              {heroEyebrow}
+            </p>
+          )}
+          {title && (
+            <h1 className="mt-4 font-heading text-6xl font-bold leading-[0.95] text-white sm:text-7xl lg:text-8xl">
+              {title}
+            </h1>
+          )}
+          {description && (
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/80 sm:text-xl">
+              {description}
+            </p>
+          )}
+          {primaryCta && (
+            <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 text-sm font-bold text-white/85">
+              <Link
+                href={primaryCta.href}
+                className="inline-flex items-center gap-2 hover:text-white"
+              >
+                <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                {primaryCta.label}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"></div>
     </section>
-  );
+  )
 }

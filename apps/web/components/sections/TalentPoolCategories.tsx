@@ -12,14 +12,12 @@ interface TalentPoolCategory {
   heroImage?: string;
 }
 
-const categoryOrder = ["u14", "u15", "u16", "u18", "u20"] as const;
+const categoryOrder = ["u14", "u15", "u16"] as const;
 
 const categoryDescriptions: Record<(typeof categoryOrder)[number], string> = {
   u14: talentPoolStageContent.u14?.summary ?? "",
   u15: talentPoolStageContent.u15?.summary ?? "",
   u16: talentPoolStageContent.u16?.summary ?? "",
-  u18: talentPoolStageContent.u18?.summary ?? "",
-  u20: talentPoolStageContent.u20?.summary ?? "",
 };
 
 export async function TalentPoolCategories(): Promise<JSX.Element> {
@@ -44,7 +42,7 @@ export async function TalentPoolCategories(): Promise<JSX.Element> {
   });
 
   return (
-    <section id="talent-pools" className="bg-background py-20">
+    <section id="talent-pools" className="section-rhythm bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">Talent Pool Categories</h2>
@@ -53,7 +51,7 @@ export async function TalentPoolCategories(): Promise<JSX.Element> {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {orderedCategories.map((category) => {
             const hasLivePage = categoriesBySlug.has(category.slug.current.toLowerCase());
 

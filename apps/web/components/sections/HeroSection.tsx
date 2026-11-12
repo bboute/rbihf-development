@@ -3,36 +3,8 @@
 import type { JSX } from "react";
 import Link from "next/link";
 
-const heroGatewayItems = [
-  {
-    title: "RBIHF Academy",
-    description:
-      "Future RBIHF learning platform for players, parents, coaches and federation staff.",
-    href: "/academy",
-    cta: "Explore Academy",
-  },
-  {
-    title: "Talent Pool",
-    description:
-      "See how RBIHF scouts players, adds federation concepts and international exposure, and prepares the pathway toward future national teams alongside club development.",
-    href: "/talent-pool",
-    cta: "View Pathway",
-  },
-  {
-    title: "National Teams",
-    description:
-      "Follow representative team activity, selection moments, camps and event communication.",
-    href: "/national-teams",
-    cta: "See Teams",
-  },
-  {
-    title: "Club Development",
-    description:
-      "See the age pathway, minimum practice standards, and what good youth development should look like in every Belgian club.",
-    href: "/club-development",
-    cta: "View Framework",
-  },
-] as const;
+const DEFAULT_HERO_VIDEO =
+  "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4";
 
 interface HeroFeaturedPost {
   title: string;
@@ -48,6 +20,7 @@ interface HeroFeaturedPost {
 interface HeroSectionProps {
   videoUrl?: string;
   featuredPost?: HeroFeaturedPost;
+  highlightedPosts?: HeroFeaturedPost[];
 }
 
 function formatHeroDate(dateString: string): string {
@@ -59,147 +32,120 @@ function formatHeroDate(dateString: string): string {
   });
 }
 
-export function HeroSection({ videoUrl, featuredPost }: HeroSectionProps = {}): JSX.Element {
+export function HeroSection({
+  videoUrl,
+  featuredPost,
+  highlightedPosts = [],
+}: HeroSectionProps = {}): JSX.Element {
+  const resolvedVideoUrl = videoUrl ?? DEFAULT_HERO_VIDEO;
+  const updates = featuredPost
+    ? [
+        featuredPost,
+        ...highlightedPosts.filter((p) => p.slug.current !== featuredPost.slug.current),
+      ].slice(0, 3)
+    : highlightedPosts.slice(0, 3);
+
   return (
-    <section className="relative overflow-hidden border-b border-primary/10 bg-[radial-gradient(circle_at_top_left,_rgba(200,43,58,0.14),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(242,194,48,0.18),_transparent_28%),linear-gradient(180deg,_rgba(245,242,235,1)_0%,_rgba(255,251,245,1)_100%)] pt-28 text-foreground">
+    <section className="relative overflow-hidden bg-[#111111] text-white">
       {/* Background video */}
-      {videoUrl && (
-        <div className="absolute inset-0 opacity-25">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src={videoUrl} type="video/mp4" />
-          </video>
-        </div>
-      )}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+        tabIndex={-1}
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src={resolvedVideoUrl} type="video/mp4" />
+      </video>
 
-      <div className="absolute inset-0 bg-background/88"></div>
+      {/* Overlay */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30"
+      ></div>
 
-      <div className="absolute inset-0 opacity-[0.06]">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMxQTFBMUEiIGZpbGwtb3BhY2l0eT0iMC40Ij48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxNSIgc3Ryb2tlPSIjMUExQTFBIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIzIi8+PC9nPjwvZz48L3N2Zz4=')]"></div>
-      </div>
+      <div className="relative z-10 mx-auto flex min-h-svh max-w-7xl items-center px-4 pb-3 pt-28 sm:px-6 sm:pb-4 lg:px-8 lg:pb-20">
+        <div className="max-w-3xl space-y-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
+            Youth Development Framework
+          </p>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-24">
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start xl:gap-10">
-          <div className="max-w-3xl space-y-8">
-            <div className="space-y-4">
-              <p className="inline-flex rounded-full border border-primary/15 bg-primary/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
-                RBIHF Development
-              </p>
+          <h1 className="text-5xl font-bold tracking-tight text-white sm:text-6xl xl:text-7xl">
+            Belgian hockey has a clear next step.
+          </h1>
 
-              <h1 className="text-5xl font-bold tracking-tight text-foreground sm:text-6xl xl:text-7xl">
-                Youth Development Framework
-              </h1>
+          <p className="max-w-2xl text-lg leading-8 text-white/85 sm:text-xl">
+            One development pathway for players, parents, coaches and clubs—from first contact with the game through national-team preparation.
+          </p>
 
-              <p className="max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
-                A clear structure for academy learning, club development, talent identification, and national team pathways, helping Belgian players, parents, coaches, and clubs understand each next step from first contact to U20.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/#news"
-                className="inline-flex items-center rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90"
-              >
-                Latest News
-              </Link>
-              <Link
-                href="/#calendar"
-                className="inline-flex items-center rounded-full border border-foreground/15 bg-background px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
-              >
-                View Calendar
-              </Link>
-            </div>
-          </div>
-
-          <div className="w-full lg:self-start lg:pt-16 xl:pt-[4.5rem]">
-            <div className="relative w-full overflow-hidden rounded-[2rem] border border-black/10 bg-[#111111] p-6 text-white shadow-[0_25px_80px_rgba(17,17,17,0.18)] lg:mt-0">
-              <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_38%,rgba(200,43,58,0.24),rgba(242,194,48,0.12))]"></div>
-              <div className="relative space-y-6">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/65">
-                    Highlighted News
-                  </p>
-                  <h2 className="mt-3 text-2xl font-semibold">
-                    {featuredPost ? featuredPost.title : "Latest federation update"}
-                  </h2>
-                </div>
-
-                {featuredPost ? (
-                  <>
-                    <div className="flex flex-wrap items-center gap-3 text-sm text-white/70">
-                      <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1">
-                        {formatHeroDate(featuredPost.publishedAt)}
-                      </span>
-                      {featuredPost.categories?.[0] && (
-                        <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1">
-                          {featuredPost.categories[0].title}
-                        </span>
-                      )}
-                    </div>
-
-                    <p className="text-base leading-7 text-white/82">
-                      {featuredPost.excerpt}
-                    </p>
-
-                    <div className="flex flex-wrap gap-3">
-                      <Link
-                        href={`/news/${featuredPost.slug.current}`}
-                        className="inline-flex items-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-white/90"
-                      >
-                        Read More
-                      </Link>
-                      <Link
-                        href="/news"
-                        className="inline-flex items-center rounded-full border border-white/20 bg-transparent px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-                      >
-                        All News
-                      </Link>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-base leading-7 text-white/82">
-                      Add at least one news item in Sanity and the hero will automatically feature it here with direct links into the newsroom.
-                    </p>
-
-                    <div className="flex flex-wrap gap-3">
-                      <Link
-                        href="/news"
-                        className="inline-flex items-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-white/90"
-                      >
-                        All News
-                      </Link>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {heroGatewayItems.map((item) => (
+          <div className="flex flex-wrap items-center gap-6">
             <Link
-              key={item.title}
-              href={item.href}
-              className="group rounded-3xl border border-primary/10 bg-white/75 p-5 shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-secondary/20 hover:shadow-lg"
+              href="/#pathway"
+              className="inline-flex items-center rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90"
             >
-              <p className="text-2xl font-bold text-secondary">{item.title}</p>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                {item.description}
-              </p>
-              <p className="mt-5 text-sm font-semibold text-foreground transition-colors group-hover:text-secondary">
-                {item.cta}
-              </p>
+              Find your age group
             </Link>
-          ))}
+            <Link
+              href="/#programs"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-white/80"
+            >
+              Explore the framework <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+
+          {updates.length > 0 && (
+            <div className="space-y-3 border-t border-white/15 pt-6 text-sm">
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
+                Latest updates
+              </span>
+              <ul className="space-y-2.5">
+                {updates.map((post) => (
+                  <li key={post.slug.current}>
+                    <Link
+                      href={`/news/${post.slug.current}`}
+                      className="group/update inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm"
+                    >
+                      <span className="text-white/55">
+                        {formatHeroDate(post.publishedAt)}
+                      </span>
+                      <span className="font-semibold text-white transition-colors group-hover/update:text-white/80">
+                        {post.title}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="text-white/60 transition-transform duration-300 group-hover/update:translate-x-1"
+                      >
+                        →
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/news"
+                className="inline-flex items-center gap-1.5 text-sm text-white/60 transition-colors hover:text-white"
+              >
+                All updates <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
+
+      {/* Scroll-down indicator */}
+      {/* Scroll-down indicator */}
+      <a
+        href="#pathway"
+        aria-label="Scroll to next section"
+        className="group absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-white/70 transition-colors hover:text-white"
+      >
+        <span className="relative flex h-14 w-8 items-center justify-center overflow-hidden rounded-full border border-white/40 transition-colors group-hover:border-white/70">
+          <span className="absolute h-4 w-px animate-[scrollhint_1.6s_ease-in-out_infinite] bg-white/80"></span>
+        </span>
+      </a>
     </section>
   );
 }

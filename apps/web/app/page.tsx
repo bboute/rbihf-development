@@ -1,28 +1,37 @@
 import type { JSX } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { FundamentalCategories } from "@/components/sections/FundamentalCategories";
+import { PathwayAccordion } from "@/components/sections/PathwayAccordion";
 import { NewsSection } from "@/components/sections/NewsSection";
-import { ExhibitionGamesSection } from "@/components/sections/ExhibitionGamesSection";
+import { SeasonPlanningSection } from "@/components/sections/SeasonPlanningSection";
 import {
   getAllPosts,
-  getAllExhibitionGames,
-  getAllFundamentalCategories,
+  getCalendarEntries,
+  getHomePage,
+  getAllFundamentalCategoriesForPathway,
+  getEventLabels,
 } from "@/lib/sanityClient";
+import { isClubDevelopmentEnabled } from "@/lib/featureFlags";
 
 export default async function Page(): Promise<JSX.Element> {
-  const posts = await getAllPosts();
-  const games = await getAllExhibitionGames();
-  const fundamentalCategories = await getAllFundamentalCategories();
+  const [posts, events, homePage, pathwayStages, labels] = await Promise.all([
+    getAllPosts(),
+    getCalendarEntries(),
+    getHomePage(),
+    getAllFundamentalCategoriesForPathway(),
+    getEventLabels(),
+  ]);
   const featuredPost = posts[0];
 
   return (
     <main>
       <HeroSection
+        videoUrl={homePage?.heroVideoUrl}
         featuredPost={featuredPost}
+        highlightedPosts={posts.slice(1, 4)}
       />
+      {isClubDevelopmentEnabled && <PathwayAccordion stages={pathwayStages} />}
       <NewsSection posts={posts} />
-      <ExhibitionGamesSection games={games} />
-      <FundamentalCategories categories={fundamentalCategories} />
+      <SeasonPlanningSection events={events} labels={labels} />
     </main>
   );
 }

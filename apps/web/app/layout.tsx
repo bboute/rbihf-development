@@ -1,15 +1,22 @@
 import type { ReactNode } from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Lato, Urbanist, Geist_Mono } from "next/font/google"
 
 import "@workspace/ui/globals.css"
 import { Providers } from "@/components/providers"
 import { Footer } from "@/components/layout/Footer"
 import { ConditionalHeader } from "@/components/layout/ConditionalHeader"
 
-const fontSans = Geist({
+const fontBody = Lato({
   subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  style: ["normal", "italic"],
   variable: "--font-sans",
+})
+
+const fontHeading = Urbanist({
+  subsets: ["latin"],
+  variable: "--font-heading",
 })
 
 const fontMono = Geist_Mono({
@@ -18,8 +25,8 @@ const fontMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "RBIHF Development Hub",
-  description: "Belgian Ice Hockey Development Platform",
+  title: "RBIHF Development Centre of Excellence",
+  description: "RBIHF Development Centre of Excellence (RDCE) for Belgian ice hockey",
 }
 
 export default function RootLayout({
@@ -30,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}
+        className={`${fontBody.variable} ${fontHeading.variable} ${fontMono.variable} font-sans antialiased `}
       >
         <Providers>
           <ConditionalHeader />

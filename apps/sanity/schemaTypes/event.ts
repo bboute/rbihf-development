@@ -29,9 +29,37 @@ export const event = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'eventDate',
-      title: 'Event Date',
+      name: 'startDate',
+      title: 'Start Date',
       type: 'datetime',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'endDate',
+      title: 'End Date',
+      type: 'datetime',
+      description: 'Optional end date for camps and multi-day events',
+      validation: (Rule) =>
+        Rule.custom((endDate, context) => {
+          const startDate = (context.document as {startDate?: string})?.startDate
+
+          return !endDate || !startDate || new Date(endDate) >= new Date(startDate)
+            ? true
+            : 'End date must be after the event date'
+        }),
+    }),
+    defineField({
+      name: 'status',
+      title: 'Planning Status',
+      type: 'string',
+      initialValue: 'confirmed',
+      options: {
+        layout: 'radio',
+        list: [
+          {title: 'Confirmed', value: 'confirmed'},
+          {title: 'Provisional', value: 'provisional'},
+        ],
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({

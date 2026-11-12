@@ -7,6 +7,57 @@ export interface TalentPoolStageContent {
   concepts: string
   futureConnection: string
   exposure: string
+  staffing: {
+    intro: string
+    roles: { title: string; description: string }[]
+  }
+}
+
+export const talentPoolAgeGroups = ["u14", "u15", "u16"] as const
+
+export type TalentPoolAgeGroup = (typeof talentPoolAgeGroups)[number]
+
+export function isTalentPoolAgeGroup(slug: string): boolean {
+  return talentPoolAgeGroups.includes(slug.toLowerCase() as TalentPoolAgeGroup)
+}
+
+export interface TalentPoolCategoryReference {
+  title: string
+  slug: TalentPoolAgeGroup
+}
+
+export interface TalentPoolEvent {
+  _id: string
+  title: string
+  slug: { current: string }
+  description?: string
+  eventDate: string
+  endDate?: string
+  venue: string
+  status: "confirmed" | "provisional"
+  categories: TalentPoolCategoryReference[]
+}
+
+export interface TalentPoolPost {
+  _id: string
+  title: string
+  slug: { current: string }
+  excerpt: string
+  publishedAt: string
+  imageUrl?: string
+  categories: TalentPoolCategoryReference[]
+}
+
+export interface TalentPoolDocument {
+  _id: string
+  title: string
+  description: string
+  documentType: "school" | "medical" | "consent" | "travel" | "program" | "other"
+  fileUrl: string
+  fileName?: string
+  season?: string
+  publishedAt: string
+  categories: TalentPoolCategoryReference[]
 }
 
 export const talentPoolPathway = [
@@ -45,6 +96,32 @@ export const talentPoolStageContent: Record<string, TalentPoolStageContent> = {
       "The goal is not early national-team performance. It is creating familiarity, trust, and a foundation that makes future U15 and U16 integration smoother.",
     exposure:
       "The flagship moment is the annual U14 event, where social cohesion is treated as part of long-term preparation.",
+    staffing: {
+      intro:
+        "The U14 stage is staffed to prioritize a safe, welcoming first federation experience with strong supervision and guidance.",
+      roles: [
+        {
+          title: "Lead Coach",
+          description:
+            "Guides on-ice sessions and introduces the federation's shared concepts in an accessible way.",
+        },
+        {
+          title: "Support Coaches",
+          description:
+            "Work in smaller groups so every player gets individual attention during camps and events.",
+        },
+        {
+          title: "Team Manager",
+          description:
+            "Coordinates logistics, communication with families, and the daily schedule around the event.",
+        },
+        {
+          title: "Equipment & Safety Staff",
+          description:
+            "Ensure equipment fits, safety standards are met, and players are cared for throughout.",
+        },
+      ],
+    },
   },
   u15: {
     slug: "u15",
@@ -61,6 +138,32 @@ export const talentPoolStageContent: Record<string, TalentPoolStageContent> = {
       "This stage helps identify who adapts well to international tempo and who keeps progressing toward later national-team consideration.",
     exposure:
       "The pathway is anchored by four international tournaments spread across the season.",
+    staffing: {
+      intro:
+        "With more travel and international competition, the U15 staff focuses on preparation, structure, and player support on the road.",
+      roles: [
+        {
+          title: "Head Coach",
+          description:
+            "Leads the program across the four tournaments and reinforces the federation playing model.",
+        },
+        {
+          title: "Assistant Coaches",
+          description:
+            "Support game preparation, video review, and individual player feedback during international events.",
+        },
+        {
+          title: "Team Manager",
+          description:
+            "Manages travel, accommodation, and communication with families across the season.",
+        },
+        {
+          title: "Equipment Manager",
+          description:
+            "Handles equipment transport and maintenance throughout the tournament calendar.",
+        },
+      ],
+    },
   },
   u16: {
     slug: "u16",
@@ -77,38 +180,32 @@ export const talentPoolStageContent: Record<string, TalentPoolStageContent> = {
       "U16 is the clearest early checkpoint for players with potential to progress toward U18 national-team level.",
     exposure:
       "International and camp moments are used less for introduction and more for evaluating progression inside the shared playing model.",
-  },
-  u18: {
-    slug: "u18",
-    label: "U18",
-    summary:
-      "Performance stage where preparation starts resembling full national-team demands.",
-    stagePurpose:
-      "U18 builds on the earlier pipeline and shifts the emphasis toward executing the federation model at a higher level rather than learning it for the first time.",
-    playerExperience:
-      "Players are expected to arrive with shared references already in place, allowing camps and tournaments to focus more on performance and role clarity.",
-    concepts:
-      "Federation concepts are refined through sharper tactical expectations and competitive execution.",
-    futureConnection:
-      "This stage connects directly to youth national-team performance and later senior progression.",
-    exposure:
-      "Events and camps become more explicitly tied to selection and performance outcomes.",
-  },
-  u20: {
-    slug: "u20",
-    label: "U20",
-    summary:
-      "Final youth bridge before senior transition and full representative demands.",
-    stagePurpose:
-      "U20 is the final youth step in the federation pathway, focusing on readiness for senior expectations while keeping the national-team connection explicit.",
-    playerExperience:
-      "Players operate in an environment shaped by performance, maturity, and responsibility rather than introductory pathway education.",
-    concepts:
-      "The federation model is no longer presented as a new framework but as the expected base for execution.",
-    futureConnection:
-      "The emphasis is on converting youth potential into readiness for senior international pathways.",
-    exposure:
-      "Competitive moments serve as final youth benchmarks before senior transition.",
+    staffing: {
+      intro:
+        "The U16 stage uses a more focused staff profile that mirrors the expectations of future national-team environments.",
+      roles: [
+        {
+          title: "Head Coach",
+          description:
+            "Leads evaluation and preparation with a direct line to the U18 national-team staff.",
+        },
+        {
+          title: "Skills & Systems Coaches",
+          description:
+            "Deepen tactical understanding and prepare players for the demands of the national-team playing model.",
+        },
+        {
+          title: "Team Manager",
+          description:
+            "Coordinates camps, travel, and the evaluation communication process.",
+        },
+        {
+          title: "Athletic Support Staff",
+          description:
+            "Support off-ice development, recovery, and physical preparation appropriate to the age group.",
+        },
+      ],
+    },
   },
 }
 

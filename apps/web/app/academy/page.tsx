@@ -11,7 +11,7 @@ import {
 export default function AcademyPage(): JSX.Element {
   return (
     <main className="min-h-screen bg-background">
-      <section className="border-b border-primary/10 bg-[radial-gradient(circle_at_top_left,_rgba(200,43,58,0.12),_transparent_32%),radial-gradient(circle_at_top_right,_rgba(0,123,143,0.14),_transparent_28%),linear-gradient(180deg,rgba(245,242,235,1)_0%,rgba(252,250,245,1)_100%)] py-24">
+      <section className="border-b border-primary/10 bg-[radial-gradient(circle_at_top_left,_rgba(200,43,58,0.12),_transparent_32%),radial-gradient(circle_at_top_right,_rgba(0,123,143,0.14),_transparent_28%),linear-gradient(180deg,rgba(245,242,235,1)_0%,rgba(252,250,245,1)_100%)] pt-24 pb-3 sm:pb-4 lg:pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl space-y-6">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
@@ -36,7 +36,7 @@ export default function AcademyPage(): JSX.Element {
         </div>
       </section>
 
-      <section className="py-16" id="pathways">
+      <section className="section-rhythm" id="pathways">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl space-y-4 mb-10">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
@@ -68,7 +68,7 @@ export default function AcademyPage(): JSX.Element {
         </div>
       </section>
 
-      <section className="border-y border-primary/10 bg-muted/20 py-16" id="topics">
+      <section className="section-rhythm border-y border-primary/10 bg-muted/20" id="topics">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl space-y-4 mb-10">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
@@ -100,7 +100,7 @@ export default function AcademyPage(): JSX.Element {
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="section-rhythm">
         <div className="container mx-auto px-4">
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="rounded-[1.75rem] border border-primary/10 bg-card p-8 shadow-sm">

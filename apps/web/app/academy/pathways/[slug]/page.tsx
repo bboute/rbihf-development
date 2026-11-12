@@ -24,7 +24,7 @@ export default async function AcademyPathwayPage({
 
   return (
     <main className="min-h-screen bg-background">
-      <section className="border-b border-primary/10 bg-[linear-gradient(180deg,rgba(245,242,235,1)_0%,rgba(252,250,245,1)_100%)] py-20">
+      <section className="border-b border-primary/10 bg-[linear-gradient(180deg,rgba(245,242,235,1)_0%,rgba(252,250,245,1)_100%)] pt-20 pb-3 sm:pb-4 lg:pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl space-y-5">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
@@ -48,7 +48,7 @@ export default async function AcademyPathwayPage({
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="section-rhythm">
         <div className="container mx-auto px-4">
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="space-y-8">

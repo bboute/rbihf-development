@@ -5,11 +5,19 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
+import {
+  isAcademyEnabled,
+  isClubDevelopmentEnabled,
+} from "@/lib/featureFlags"
 
 const menuItems = [
   { label: "Home", href: "/" },
-  { label: "RBIHF Academy", href: "/academy" },
-  { label: "Club Development", href: "/club-development" },
+  ...(isAcademyEnabled
+    ? [{ label: "RBIHF Academy", href: "/academy" }]
+    : []),
+  ...(isClubDevelopmentEnabled
+    ? [{ label: "Club Development", href: "/club-development" }]
+    : []),
   { label: "Talent Pool", href: "/talent-pool" },
   { label: "National Teams", href: "/national-teams" },
   { label: "News", href: "/news" },
@@ -135,7 +143,7 @@ export function HeaderMenu(): JSX.Element {
 
           <div className="border-t border-primary/10 bg-muted/30 px-6 py-4">
             <p className="text-sm text-muted-foreground">
-              RBIHF Development Hub
+              RBIHF Development Centre of Excellence
             </p>
           </div>
         </aside>

@@ -8,8 +8,14 @@ import {exhibitionGame} from './exhibitionGame'
 import {homePage} from './homePage'
 import {announcement} from './announcement'
 import {skillCategory} from './skillCategory'
+import {talentPoolDocument} from './talentPoolDocument'
+import {talentPoolPage, nationalTeamsPage} from './hubPage'
+import {eventLabels} from './eventLabels'
+import {pathwayPage} from './pathwayPage'
+import {contentSectionTypes} from './contentSections'
 
 export const schemaTypes = [
+  ...contentSectionTypes,
   guide,
   post,
   page,
@@ -20,4 +26,9 @@ export const schemaTypes = [
   homePage,
   announcement,
   skillCategory,
+  talentPoolDocument,
+  talentPoolPage,
+  nationalTeamsPage,
+  eventLabels,
+  pathwayPage,
 ]

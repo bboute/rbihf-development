@@ -13,9 +13,9 @@ interface RecruitmentBannerProps {
 export default function RecruitmentBanner({ bannerData, variant = "player" }: RecruitmentBannerProps) {
   const { headline, bodyText, ctaButtonText, ctaLink } = bannerData
 
-  const bannerClasses = variant === 'coach' 
-    ? "bg-secondary py-16 px-4 md:py-20"
-    : "bg-tertiary py-16 px-4 md:py-20"
+  const bannerClasses = variant === 'coach'
+    ? 'section-rhythm bg-secondary px-4'
+    : 'section-rhythm bg-tertiary px-4'
 
   const textClasses = variant === 'coach'
     ? "text-secondary-foreground"

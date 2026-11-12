@@ -137,9 +137,9 @@ h6 {
   @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }
 
-/* Section spacing */
+/* Page-section spacing per edge: 12px mobile, 16px tablet, 80px desktop */
 .section {
-  @apply py-16;
+  @apply py-3 sm:py-4 lg:py-20;
 }
 
 /* Card spacing */
@@ -376,7 +376,7 @@ h6 {
   - Default: transparent
   - Alternate: `bg-muted/30` for visual separation
   - Info panels: `bg-muted/20` with `border-primary/10`
-- Padding: `py-16` standard
+- Section vertical spacing: `py-3 sm:py-4 lg:py-20` (12px / 16px / 80px per edge; 24px / 32px / 160px between adjacent sections)
 - Content centering: `text-center mb-12` for section intros
 
 ### Section Headers
